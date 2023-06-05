@@ -1,12 +1,10 @@
-"use strict";
-
-const fs = require("fs");
-const path = require("path");
-const jsonParser = require("jsonc-parser");
+const fs = require('node:fs');
+const path = require('node:path');
+const jsonParser = require('jsonc-parser');
 
 function has(map, path) {
   let inner = map;
-  for (let step of path.split(".")) {
+  for (const step of path.split('.')) {
     inner = inner[step];
     if (inner === undefined) {
       return false;
@@ -20,7 +18,7 @@ function findDirWithFile(filename) {
 
   do {
     dir = path.dirname(dir);
-  } while (!fs.existsSync(path.join(dir, filename)) && dir !== "/");
+  } while (!fs.existsSync(path.join(dir, filename)) && dir !== '/');
 
   if (!fs.existsSync(path.join(dir, filename))) {
     return;
@@ -31,8 +29,8 @@ function findDirWithFile(filename) {
 
 function getImportPrefixToAlias(paths) {
   const reversed = {};
-  for (let key of Object.keys(paths)) {
-    for (let path of paths[key]) {
+  for (const key of Object.keys(paths)) {
+    for (const path of paths[key]) {
       reversed[path] = key;
     }
   }
@@ -40,27 +38,27 @@ function getImportPrefixToAlias(paths) {
 }
 
 function getBaseUrlAndPaths(baseDir) {
-  let url = "";
+  let url = '';
   let paths = {};
 
-  if (fs.existsSync(path.join(baseDir, "tsconfig.json"))) {
+  if (fs.existsSync(path.join(baseDir, 'tsconfig.json'))) {
     const tsconfig = jsonParser.parse(
-      fs.readFileSync(path.join(baseDir, "tsconfig.json")).toString()
+      fs.readFileSync(path.join(baseDir, 'tsconfig.json')).toString()
     );
-    if (has(tsconfig, "compilerOptions.baseUrl")) {
+    if (has(tsconfig, 'compilerOptions.baseUrl')) {
       url = tsconfig.compilerOptions.baseUrl;
     }
-    if (has(tsconfig, "compilerOptions.paths")) {
+    if (has(tsconfig, 'compilerOptions.paths')) {
       paths = tsconfig.compilerOptions.paths;
     }
-  } else if (fs.existsSync(path.join(baseDir, "jsconfig.json"))) {
+  } else if (fs.existsSync(path.join(baseDir, 'jsconfig.json'))) {
     const jsconfig = jsonParser.parse(
-      fs.readFileSync(path.join(baseDir, "jsconfig.json")).toString()
+      fs.readFileSync(path.join(baseDir, 'jsconfig.json')).toString()
     );
-    if (has(jsconfig, "compilerOptions.baseUrl")) {
+    if (has(jsconfig, 'compilerOptions.baseUrl')) {
       url = jsconfig.compilerOptions.baseUrl;
     }
-    if (has(jsconfig, "compilerOptions.paths")) {
+    if (has(jsconfig, 'compilerOptions.paths')) {
       paths = jsconfig.compilerOptions.paths;
     }
   }
@@ -68,14 +66,24 @@ function getBaseUrlAndPaths(baseDir) {
   return [path.join(baseDir, url), paths];
 }
 
-function getExpectedPath(absolutePath, baseUrl, importPrefixToAlias, onlyPathAliases, onlyAbsoluteImports) {
+function getExpectedPath(
+  absolutePath,
+  baseUrl,
+  importPrefixToAlias,
+  onlyPathAliases,
+  onlyAbsoluteImports
+) {
   const relativeToBasePath = path.relative(baseUrl, absolutePath);
   if (!onlyAbsoluteImports) {
-    for (let prefix of Object.keys(importPrefixToAlias)) {
+    for (const prefix of Object.keys(importPrefixToAlias)) {
       const aliasPath = importPrefixToAlias[prefix];
       // assuming they are either a full path or a path ends with /*, which are the two standard cases
-      const importPrefix = prefix.endsWith("/*") ? prefix.replace("/*", "") : prefix;
-      const aliasImport = aliasPath.endsWith("/*") ? aliasPath.replace("/*", "") : aliasPath;
+      const importPrefix = prefix.endsWith('/*')
+        ? prefix.replace('/*', '')
+        : prefix;
+      const aliasImport = aliasPath.endsWith('/*')
+        ? aliasPath.replace('/*', '')
+        : aliasPath;
       if (relativeToBasePath.startsWith(importPrefix)) {
         return `${aliasImport}${relativeToBasePath.slice(importPrefix.length)}`;
       }
@@ -95,15 +103,19 @@ const optionsSchema = {
     onlyAbsoluteImports: {
       type: 'boolean',
     },
-  }
-}
+  },
+};
 
-function generateRule(context, errorMessagePrefix, importPathConditionCallback) {
+function generateRule(
+  context,
+  errorMessagePrefix,
+  importPathConditionCallback
+) {
   const options = context.options[0] || {};
   const onlyPathAliases = options.onlyPathAliases || false;
   const onlyAbsoluteImports = options.onlyAbsoluteImports || false;
 
-  const baseDir = findDirWithFile("package.json");
+  const baseDir = findDirWithFile('package.json');
   const [baseUrl, paths] = getBaseUrlAndPaths(baseDir);
   const importPrefixToAlias = getImportPrefixToAlias(paths);
 
@@ -121,14 +133,14 @@ function generateRule(context, errorMessagePrefix, importPathConditionCallback) 
           baseUrl,
           importPrefixToAlias,
           onlyPathAliases,
-          onlyAbsoluteImports,
+          onlyAbsoluteImports
         );
 
         if (expectedPath && source !== expectedPath) {
           context.report({
             node,
             message: `${errorMessagePrefix}. Use \`${expectedPath}\` instead RG of \`${source}\`.`,
-            fix: function (fixer) {
+            fix(fixer) {
               return fixer.replaceText(node.source, `'${expectedPath}'`);
             },
           });
@@ -139,30 +151,30 @@ function generateRule(context, errorMessagePrefix, importPathConditionCallback) 
 }
 
 module.exports.rules = {
-  "no-relative-import": {
+  'no-relative-import': {
     meta: {
       fixable: true,
-      schema: [optionsSchema]
+      schema: [optionsSchema],
     },
-    create: function (context) {
+    create(context) {
       return generateRule(
         context,
-        "Relative imports are not allowed",
-        (source) => source.startsWith("."),
+        'Relative imports are not allowed',
+        (source) => source.startsWith('.')
       );
     },
   },
-  "no-relative-parent-imports": {
+  'no-relative-parent-imports': {
     meta: {
       fixable: true,
-      schema: [optionsSchema]
+      schema: [optionsSchema],
     },
-    create: function (context) {
+    create(context) {
       return generateRule(
         context,
-        "Relative imports from parent directories are not allowed",
-        (source) => source.startsWith(".."),
-      )
+        'Relative imports from parent directories are not allowed',
+        (source) => source.startsWith('..')
+      );
     },
   },
 };
