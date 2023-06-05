@@ -1,4 +1,4 @@
-import { getPaths } from '.';
+import { getExpectedPath, getPaths } from './get-paths';
 
 describe('getPaths', () => {
   it('returns paths from tsconfig.json', async ({ expect }) => {
@@ -8,5 +8,17 @@ describe('getPaths', () => {
         '@/*': ['*'],
       },
     ]);
+  });
+
+  it('getExpectedPath', async () => {
+    expect(
+      getExpectedPath(
+        'C:\\Users\\kiskadee\\projects\\desafio-frontend-web\\components\\Header',
+        'C:\\Users\\kiskadee\\projects\\desafio-frontend-web',
+        { '*': '@/*' },
+        false,
+        true
+      )
+    ).toBe('@/components/Header');
   });
 });
