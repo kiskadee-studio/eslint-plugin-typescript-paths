@@ -1,3 +1,4 @@
+import { describe } from 'vitest';
 import { getExpectedPath, getPaths } from './get-paths';
 
 describe('getPaths', () => {
@@ -10,15 +11,28 @@ describe('getPaths', () => {
     ]);
   });
 
-  it('getExpectedPath', async () => {
-    expect(
-      getExpectedPath(
-        'C:\\Users\\kiskadee\\projects\\desafio-frontend-web\\components\\Header',
-        'C:\\Users\\kiskadee\\projects\\desafio-frontend-web',
-        { '*': '@/*' },
-        false,
-        true
-      )
-    ).toBe('@/components/Header');
+  describe('getImportPrefixToAlias', () => {
+    it('getExpectedPath', async () => {
+      expect(
+        getExpectedPath(
+          'C:\\Users\\kiskadee\\projects\\desafio-frontend-web\\components\\Header',
+          'C:\\Users\\kiskadee\\projects\\desafio-frontend-web',
+          { '*': '@/*' },
+          false,
+          true
+        )
+      ).toBe('@/components/Header');
+    });
+    it('getExpectedPath 2', async () => {
+      expect(
+        getExpectedPath(
+          'C:\\Users\\kiskadee\\projects\\desafio-frontend-web\\components\\NewFarm.types',
+          'C:\\Users\\kiskadee\\projects\\desafio-frontend-web',
+          { '*': '@/*' },
+          false,
+          true
+        )
+      ).toBe('@/components/NewFarm.types');
+    });
   });
 });

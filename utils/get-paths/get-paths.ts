@@ -177,11 +177,11 @@ const rules = {
         context,
         'Relative imports are not allowed',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (source: any) => source.startsWith('.')
+        (source: any) => source.startsWith('./')
       );
     },
   },
-  'no-relative-parent-imports': {
+  'no-relative-parent-import': {
     meta: {
       fixable: true,
       schema: [optionsSchema],
@@ -192,7 +192,7 @@ const rules = {
         context,
         'Relative imports from parent directories are not allowed',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (source: any) => source.startsWith('..')
+        (source: any) => source.startsWith('../')
       );
     },
   },
