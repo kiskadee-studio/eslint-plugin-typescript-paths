@@ -99,7 +99,7 @@ function generateRule(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   importPathConditionCallback: any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): { ImportDeclaration(node: any): void } {
+): any {
   const options = context.options[0] || {};
   const onlyPathAliases = options.onlyPathAliases || false;
   const onlyAbsoluteImports = options.onlyAbsoluteImports || false;
@@ -112,12 +112,12 @@ function generateRule(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ImportDeclaration(node: any): void {
       const source = node.source.value;
-      if (importPathConditionCallback(source)) {
-        const filename = context.getFilename();
+      const filename = context.getFilename();
+      const absolutePath = path.normalize(
+        path.join(path.dirname(filename), source)
+      );
 
-        const absolutePath = path.normalize(
-          path.join(path.dirname(filename), source)
-        );
+      if (importPathConditionCallback(source) && existsSync(absolutePath)) {
         const expectedPath = getExpectedPath(
           absolutePath,
           baseUrl,
@@ -127,6 +127,8 @@ function generateRule(
         );
 
         const x = {
+          source,
+          expectedPath,
           absolutePath,
           baseUrl,
           importPrefixToAlias,
@@ -134,12 +136,12 @@ function generateRule(
           onlyAbsoluteImports,
         };
 
-        if ((expectedPath && source !== expectedPath) || true) {
+        if ((expectedPath && source !== expectedPath) || expectedPath) {
           context.report({
             node,
-            message: `${errorMessagePrefix}. Use \`${expectedPath}\` !---\`${JSON.stringify(
+            message: `${errorMessagePrefix}. Use \`${expectedPath}\` ---\`${JSON.stringify(
               x
-            )}\`---! instead of \`${source}\`.`,
+            )}\`--- instead of \`${source}\`.`,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             fix(fixer: any) {
               return fixer.replaceText(node.source, `'${expectedPath}'`);
