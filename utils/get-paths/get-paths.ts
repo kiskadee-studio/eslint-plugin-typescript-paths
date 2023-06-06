@@ -176,8 +176,7 @@ const rules = {
       return generateRule(
         context,
         'Relative imports are not allowed',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (source: any) => source.startsWith('./')
+        (source: string) => source.startsWith('./')
       );
     },
   },
@@ -191,8 +190,7 @@ const rules = {
       return generateRule(
         context,
         'Relative imports from parent directories are not allowed',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (source: any) => source.startsWith('../')
+        (source: string) => source.startsWith('../')
       );
     },
   },
