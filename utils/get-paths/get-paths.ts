@@ -36,7 +36,9 @@ export function getPaths(rootDir = ''): BaseURLPaths {
   return [path.posix.join(rootDir, baseUrl as string), paths];
 }
 
-function getImportPrefixToAlias(paths: Paths = {}): { [key: string]: string } {
+export function getImportPrefixToAlias(paths: Paths = {}): {
+  [key: string]: string;
+} {
   const reversed: { [k: string]: string } = {};
   for (const key of Object.keys(paths)) {
     for (const p of paths[key]) {
@@ -49,9 +51,9 @@ function getImportPrefixToAlias(paths: Paths = {}): { [key: string]: string } {
 export function getExpectedPath(
   absolutePath: string,
   baseUrl: string,
-  importPrefixToAlias: { [key: string]: string },
-  onlyPathAliases: boolean,
-  onlyAbsoluteImports: boolean
+  importPrefixToAlias: { [key: string]: string }
+  // onlyPathAliases: boolean,
+  // onlyAbsoluteImports: boolean
 ): string | undefined {
   const relativeToBasePath = path.relative(baseUrl, absolutePath);
   // if (!onlyAbsoluteImports) {
@@ -77,7 +79,7 @@ export function getExpectedPath(
   // }
 }
 
-function findDirWithFile(filename: string): string | undefined {
+export function findDirWithFile(filename: string): string | undefined {
   let dir = path.resolve(filename);
 
   do {
@@ -90,110 +92,3 @@ function findDirWithFile(filename: string): string | undefined {
 
   return dir;
 }
-
-function generateRule(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errorMessagePrefix: any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  importPathConditionCallback: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): any {
-  const options = context.options[0] || {};
-  const onlyPathAliases = options.onlyPathAliases || false;
-  const onlyAbsoluteImports = options.onlyAbsoluteImports || false;
-
-  const baseDir = findDirWithFile('package.json');
-  const [baseUrl, paths] = getPaths(baseDir);
-  const importPrefixToAlias = getImportPrefixToAlias(paths);
-
-  return {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ImportDeclaration(node: any): void {
-      const source = node.source.value;
-      const filename = context.getFilename();
-      const absolutePath = path.normalize(
-        path.join(path.dirname(filename), source)
-      );
-
-      if (importPathConditionCallback(source) && existsSync(absolutePath)) {
-        const expectedPath = getExpectedPath(
-          absolutePath,
-          baseUrl,
-          importPrefixToAlias,
-          onlyPathAliases,
-          onlyAbsoluteImports
-        );
-
-        const x = {
-          source,
-          expectedPath,
-          absolutePath,
-          baseUrl,
-          importPrefixToAlias,
-          onlyPathAliases,
-          onlyAbsoluteImports,
-        };
-
-        if ((expectedPath && source !== expectedPath) || expectedPath) {
-          context.report({
-            node,
-            message: `${errorMessagePrefix}. Use \`${expectedPath}\` ---\`${JSON.stringify(
-              x
-            )}\`--- instead of \`${source}\`.`,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            fix(fixer: any) {
-              return fixer.replaceText(node.source, `'${expectedPath}'`);
-            },
-          });
-        }
-      }
-    },
-  };
-}
-
-const optionsSchema = {
-  type: 'object',
-  properties: {
-    onlyPathAliases: {
-      type: 'boolean',
-    },
-    onlyAbsoluteImports: {
-      type: 'boolean',
-    },
-  },
-};
-
-const rules = {
-  'no-relative-import': {
-    meta: {
-      fixable: true,
-      schema: [optionsSchema],
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    create(context: any): any {
-      return generateRule(
-        context,
-        'Relative imports are not allowed',
-        (source: string) => source.startsWith('./')
-      );
-    },
-  },
-  'no-relative-parent-import': {
-    meta: {
-      fixable: true,
-      schema: [optionsSchema],
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    create(context: any): any {
-      return generateRule(
-        context,
-        'Relative imports from parent directories are not allowed',
-        (source: string) => source.startsWith('../')
-      );
-    },
-  },
-};
-
-export { rules };
