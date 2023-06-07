@@ -88,7 +88,7 @@ export const rules = {
           const enableCurrentDirectory =
             source.startsWith('./') && currentDirectory;
           const enableParentDirectory =
-            source.startsWith('../') && currentDirectory;
+            source.startsWith('../') && parentDirectory;
 
           const checkDirectory = existsSync(absolutePath);
           const checkTypeScriptFiles =
