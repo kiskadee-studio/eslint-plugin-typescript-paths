@@ -76,21 +76,27 @@ export const rules = {
       const importPrefixToAlias = getImportPrefixToAlias(paths);
 
       return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ImportDeclaration(node: any): void {
+        ImportDeclaration(node): void {
           const source = node.source.value;
           const filename = context.getFilename();
           const absolutePath = path.normalize(
             path.join(path.dirname(filename), source)
           );
 
+          const { importKind } = node;
+
           const enableCurrentDirectory =
             source.startsWith('./') && currentDirectory;
           const enableParentDirectory =
             source.startsWith('../') && currentDirectory;
 
+          const checkDirectory = existsSync(absolutePath);
+          const checkTypeScriptFiles =
+            existsSync(`${absolutePath}.ts`) ||
+            existsSync(`${absolutePath}.tsx`);
+
           if (
-            existsSync(absolutePath) &&
+            (checkDirectory || checkTypeScriptFiles) &&
             (enableCurrentDirectory || enableParentDirectory)
           ) {
             const expectedPath = getExpectedPath(
@@ -105,8 +111,10 @@ export const rules = {
               source,
               expectedPath,
               absolutePath,
+              exist: existsSync(absolutePath),
               baseUrl,
               importPrefixToAlias,
+              importKind,
               // onlyPathAliases,
               // onlyAbsoluteImports,
             };
@@ -114,15 +122,17 @@ export const rules = {
             if ((expectedPath && source !== expectedPath) || expectedPath) {
               context.report({
                 node,
-                messageId: enableCurrentDirectory
-                  ? 'noRelativeImport'
-                  : 'noRelativeParentImport',
-                data: { expectedPath },
-                // message: `${errorMessagePrefix}. Use \`${expectedPath}\` ---\`${JSON.stringify(
-                //   x
-                // )}\`--- instead of \`${source}\`.`,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                fix(fixer: any) {
+                // @ts-ignore
+                // source,
+                // messageId: enableCurrentDirectory
+                //   ? 'noRelativeImport'
+                //   : 'noRelativeParentImport',
+                // data: { expectedPath },
+                // @ts-ignore
+                message: `Use \`${expectedPath}\` ---\`${JSON.stringify(
+                  x
+                )}\`--- instead of \`${source}\`.`,
+                fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },
               });
