@@ -1,7 +1,7 @@
 import fs, { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import * as jsonParser from 'jsonc-parser';
-import type { BaseURLPaths, Paths, TSConfig } from '@/utils/get-paths/types';
+import type { BaseURLPaths, Paths, TSConfig } from './types';
 
 function findExistingFile(
   rootDir: string,
@@ -18,7 +18,7 @@ function findExistingFile(
 
 export function getPaths(rootDir = ''): BaseURLPaths {
   let baseUrl: string | undefined = '';
-  let paths: Paths;
+  let paths: Paths = {};
 
   const configPath = findExistingFile(rootDir, [
     'tsconfig.json',
@@ -30,7 +30,7 @@ export function getPaths(rootDir = ''): BaseURLPaths {
       readFileSync(configPath).toString()
     );
     baseUrl = tsconfig.compilerOptions?.baseUrl;
-    paths = tsconfig.compilerOptions?.paths;
+    paths = tsconfig.compilerOptions?.paths || {};
   }
 
   return [path.posix.join(rootDir, baseUrl as string), paths];
