@@ -18,6 +18,8 @@ type Options = [
   }
 ];
 
+const debug = false;
+
 export const rules = {
   'absolute-import': ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     meta: {
@@ -101,7 +103,7 @@ export const rules = {
             if (
               ((checkDirectory || checkTypeScriptFiles) &&
                 (enableCurrentDirectory || enableParentDirectory)) ||
-              true
+              debug
             ) {
               const expectedPath = getExpectedPath(
                 absolutePath,
@@ -130,7 +132,7 @@ export const rules = {
 
               if (
                 ((expectedPath && source !== expectedPath) || expectedPath) &&
-                true
+                !debug
               ) {
                 context.report({
                   node,
