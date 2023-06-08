@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import type { Paths } from '@/utils/get-paths/types';
 
 /**
@@ -12,13 +13,11 @@ export function checkAlias(
   source: string,
   paths: Paths
 ): string | false {
+  dirName = toUnixPath(dirName);
+  rootDir = toUnixPath(rootDir);
+
   const sourceWithoutLastDir = source.slice(0, source.lastIndexOf('/'));
   const lastDir = source.slice(source.lastIndexOf('/') + 1);
-
-  // eslint-disable-next-line no-param-reassign
-  dirName = toUnixPath(dirName);
-  // eslint-disable-next-line no-param-reassign
-  rootDir = toUnixPath(rootDir);
 
   for (const aliasRegex of Object.keys(paths)) {
     const alias = aliasRegex.slice(0, -2);

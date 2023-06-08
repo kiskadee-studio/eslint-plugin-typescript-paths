@@ -9,41 +9,26 @@ import {
   getPaths,
 } from '../utils/get-paths/get-paths';
 
-const optionsSchema = {
-  type: 'object',
-  properties: {
-    onlyPathAliases: {
-      type: 'boolean',
-    },
-    onlyAbsoluteImports: {
-      type: 'boolean',
-    },
-  },
-};
-
-type MessageIds =
-  | 'relativeImport'
-  | 'noRelativeImport'
-  | 'noRelativeParentImport';
+type MessageIds = 'relativeImport' | 'absoluteImport' | 'absoluteParentImport';
 
 type Options = [
   {
-    parentDirectory?: boolean;
     currentDirectory?: boolean;
+    parentDirectory?: boolean;
   }
 ];
 
 export const rules = {
-  'relative-import': ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
+  'absolute-import': ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     meta: {
       fixable: 'code',
       type: 'layout',
       messages: {
         relativeImport:
-          'Absolute imports from the current directory are not allowed. Use "{{expectedPath}}"',
-        noRelativeImport:
+          'Absolute imports are not encouraged when the files are in the same directory or below. Use "{{expectedPath}}"',
+        absoluteImport:
           'Relative imports from the current directory are not allowed. Use "{{expectedPath}}"',
-        noRelativeParentImport:
+        absoluteParentImport:
           'Relative imports from parent directories are not allowed. Use "{{expectedPath}}"',
       },
       docs: {
@@ -91,17 +76,11 @@ export const rules = {
             paths
           );
 
-          if (alias) {
+          if (alias && !currentDirectory) {
             context.report({
               node,
-              // @ts-ignore
-              // source,
-              // messageId: enableCurrentDirectory
-              //   ? 'noRelativeImport'
-              //   : 'noRelativeParentImport',
-              // data: { expectedPath },
-              // @ts-ignore
-              message: `Use LOCAL \`${alias}\` ------ instead of \`${source}\`.`,
+              messageId: 'relativeImport',
+              data: { expectedPath: alias },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${alias}'`);
               },
