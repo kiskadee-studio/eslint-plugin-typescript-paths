@@ -99,8 +99,9 @@ export const rules = {
               existsSync(`${absolutePath}.tsx`);
 
             if (
-              (checkDirectory || checkTypeScriptFiles) &&
-              (enableCurrentDirectory || enableParentDirectory)
+              ((checkDirectory || checkTypeScriptFiles) &&
+                (enableCurrentDirectory || enableParentDirectory)) ||
+              true
             ) {
               const expectedPath = getExpectedPath(
                 absolutePath,
@@ -127,7 +128,10 @@ export const rules = {
                 // onlyAbsoluteImports,
               };
 
-              if ((expectedPath && source !== expectedPath) || expectedPath) {
+              if (
+                ((expectedPath && source !== expectedPath) || expectedPath) &&
+                true
+              ) {
                 context.report({
                   node,
                   // @ts-ignore

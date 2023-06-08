@@ -16,12 +16,11 @@ export function checkAlias(
   dirName = toUnixPath(dirName);
   rootDir = toUnixPath(rootDir);
 
-  const sourceWithoutLastDir = source.slice(0, source.lastIndexOf('/'));
-  const lastDir = source.slice(source.lastIndexOf('/') + 1);
+  // const source = dirName.slice(rootDir.length);
 
   for (const aliasRegex of Object.keys(paths)) {
     const alias = aliasRegex.slice(0, -2);
-    if (sourceWithoutLastDir.startsWith(alias)) {
+    if (source.startsWith(alias)) {
       for (const originRegex of paths[aliasRegex]) {
         let origin = originRegex;
         if (originRegex === '*' || originRegex === './*') {
@@ -29,11 +28,12 @@ export function checkAlias(
         } else if (origin.endsWith('/*')) {
           origin = origin.slice(0, -2);
         }
-        const sourceNewOrigin = sourceWithoutLastDir
+        const sourceNewOrigin = source
           .replace(alias, origin)
           .replace('./', `${rootDir}/`);
-        if (sourceNewOrigin === dirName) {
-          return `./${lastDir}`;
+        if (sourceNewOrigin.startsWith(dirName)) {
+          const relativePath = sourceNewOrigin.slice(dirName.length);
+          return `.${relativePath}`;
         }
       }
     }

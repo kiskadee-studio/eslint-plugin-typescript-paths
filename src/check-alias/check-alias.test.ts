@@ -54,4 +54,18 @@ describe('checkAlias', () => {
       )
     ).toBe('./NewFarmTypes');
   });
+  it('returns relative import from current directory - 05', async ({
+    expect,
+  }) => {
+    expect(
+      checkAlias(
+        'C:\\Users\\rodri\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New',
+        '@/flows/Farm/New/components/SaveButton',
+        {
+          '@/*': ['*'],
+        }
+      )
+    ).toBe('./components/SaveButton');
+  });
 });
