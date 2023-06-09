@@ -10,17 +10,15 @@ import type { Paths } from '@/utils/get-paths/types';
 export function checkAlias(
   rootDir: string,
   dirName: string,
-  source: string,
+  pathUsed: string,
   paths: Paths
 ): string | false {
   dirName = toUnixPath(dirName);
   rootDir = toUnixPath(rootDir);
 
-  // const source = dirName.slice(rootDir.length);
-
   for (const aliasRegex of Object.keys(paths)) {
     const alias = aliasRegex.slice(0, -2);
-    if (source.startsWith(alias)) {
+    if (pathUsed.startsWith(alias)) {
       for (const originRegex of paths[aliasRegex]) {
         let origin = originRegex;
         if (originRegex === '*' || originRegex === './*') {
@@ -28,11 +26,11 @@ export function checkAlias(
         } else if (origin.endsWith('/*')) {
           origin = origin.slice(0, -2);
         }
-        const sourceNewOrigin = source
+        const pathUsedWithNewOrigin = pathUsed
           .replace(alias, origin)
           .replace('./', `${rootDir}/`);
-        if (sourceNewOrigin.startsWith(dirName)) {
-          const relativePath = sourceNewOrigin.slice(dirName.length);
+        if (pathUsedWithNewOrigin.startsWith(dirName)) {
+          const relativePath = pathUsedWithNewOrigin.slice(dirName.length);
           return `.${relativePath}`;
         }
       }

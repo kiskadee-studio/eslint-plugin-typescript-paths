@@ -1,7 +1,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import path from 'node:path';
 import { existsSync } from 'node:fs';
-import { checkAlias } from './check-alias';
+import { checkAlias } from '../utils/check-alias';
 import {
   findDirWithFile,
   getExpectedPath,
@@ -27,7 +27,7 @@ export const rules = {
       type: 'layout',
       messages: {
         relativeImport:
-          'Absolute imports are not encouraged when the files are in the same directory or below. Use "{{expectedPath}}"',
+          'Absolute imports are not encouraged when the files are in the same directory or below. Use just "{{expectedPath}}"',
         absoluteImport:
           'Relative imports from the current directory are not allowed. Use "{{expectedPath}}"',
         absoluteParentImport:
@@ -88,8 +88,6 @@ export const rules = {
               },
             });
           } else {
-            const { importKind } = node;
-
             const enableCurrentDirectory =
               source.startsWith('./') && currentDirectory;
             const enableParentDirectory =
@@ -118,7 +116,6 @@ export const rules = {
                 absolutePath,
                 exist: existsSync(absolutePath),
                 importPrefixToAlias,
-                importKind,
                 filename,
                 alias,
                 baseUrl,

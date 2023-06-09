@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { describe } from 'vitest';
-import { checkAlias } from './check-alias';
+import { checkAlias } from 'utils/check-alias/check-alias';
 
 describe('checkAlias', () => {
   it('returns relative import from current directory - 01', async ({
