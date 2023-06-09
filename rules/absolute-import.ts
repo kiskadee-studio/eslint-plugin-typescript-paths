@@ -1,19 +1,14 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import {
-  findDirWithFile,
-  getExpectedPath,
-  getImportPrefixToAlias,
-  getPaths,
-} from '@/utils/get-paths/get-paths';
+import { findDirWithFile, getPaths } from '@/utils/get-paths/get-paths';
 import path from 'node:path';
 import { checkAlias } from '@/utils/check-alias';
+import { getExpectedPath } from '@/utils/get-expected-path';
 
 type MessageIds = 'relativeImport' | 'absoluteImport';
 
 type Options = [
   {
     currentDirectory?: boolean;
-    parentDirectory?: boolean;
   }
 ];
 
@@ -52,7 +47,6 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   create(context, [options]) {
     const baseDir = findDirWithFile('package.json');
     const [baseUrl, paths] = getPaths(baseDir);
-    const importPrefixToAlias = getImportPrefixToAlias(paths);
     const { currentDirectory } = options;
 
     return {
@@ -63,11 +57,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const absolutePath = path.join(directoryName, pathUsed);
 
         if (currentDirectory && pathUsed.startsWith('./')) {
-          const expectedPath = getExpectedPath(
-            absolutePath,
-            baseUrl,
-            importPrefixToAlias
-          );
+          const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({

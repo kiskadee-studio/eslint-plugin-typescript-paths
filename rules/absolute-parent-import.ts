@@ -1,24 +1,22 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import {
-  findDirWithFile,
-  getExpectedPath,
-  getImportPrefixToAlias,
-  getPaths,
-} from '@/utils/get-paths/get-paths';
+import { findDirWithFile, getPaths } from '@/utils/get-paths/get-paths';
 import path from 'node:path';
+import { getExpectedPath } from '@/utils/get-expected-path';
 
 type MessageIds = 'absoluteParentImport';
 
-export default ESLintUtils.RuleCreator.withoutDocs<
-  [Record<string, never>],
-  MessageIds
->({
+type Options = [
+  {
+    preferPathOverBaseUrl?: boolean;
+  }
+];
+
+export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      absoluteParentImport:
-        'Relative imports from parent directories are not allowed. Use "{{expectedPath}}"',
+      absoluteParentImport: '{{log}}. Use "{{expectedPath}}"',
     },
     docs: {
       description:
@@ -27,15 +25,25 @@ export default ESLintUtils.RuleCreator.withoutDocs<
     },
     schema: [
       {
+        type: 'object',
+        properties: {
+          preferPathOverBaseUrl: {
+            type: 'boolean',
+          },
+        },
         additionalProperties: false,
       },
     ],
   },
-  defaultOptions: [{}],
+  defaultOptions: [
+    {
+      preferPathOverBaseUrl: true,
+    },
+  ],
   create(context) {
     const baseDir = findDirWithFile('package.json');
     const [baseUrl, paths] = getPaths(baseDir);
-    const importPrefixToAlias = getImportPrefixToAlias(paths);
+    // const importPrefixToAlias = getImportPrefixToAlias(paths);
 
     return {
       ImportDeclaration(node): void {
@@ -44,18 +52,25 @@ export default ESLintUtils.RuleCreator.withoutDocs<
         const directoryName = path.dirname(filename);
         const absolutePath = path.join(directoryName, pathUsed);
 
+        // const slashCount = pathUsed.split('/').length - 1;
+
+        // ESLint: {"absolutePath":"C:\\Users\\rodri\\projects\\desafio-frontend-web\\components\\Header","baseUrl":"C:\\Users\\rodri\\projects\\desafio-frontend-web","paths":{"@/*":["*","src/*"],"@request/*":["*","src/request/*"]}}. Use "*/components/Header"(typescript-paths/absolute-parent-import)
+
+        // if (pathUsed.startsWith('../') || slashCount >= 2) {
         if (pathUsed.startsWith('../')) {
-          const expectedPath = getExpectedPath(
+          const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
+
+          const log = {
             absolutePath,
             baseUrl,
-            importPrefixToAlias
-          );
+            paths,
+          };
 
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
               messageId: 'absoluteParentImport',
-              data: { expectedPath },
+              data: { expectedPath, log: JSON.stringify(log) },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
