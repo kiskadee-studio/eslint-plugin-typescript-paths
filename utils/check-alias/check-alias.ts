@@ -2,12 +2,6 @@
 import type { Paths } from '@/utils/get-paths/types';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 
-/**
- * For now, we only validate the middle part of the path, which may lead to
- * bugs. Otherwise, we will also need the baseUrl to validate whether the file
- * exists or not.
- */
-
 export function checkAlias(
   rootDir: string,
   dirName: string,
