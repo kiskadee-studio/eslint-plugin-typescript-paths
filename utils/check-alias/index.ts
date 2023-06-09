@@ -1,1 +1,1 @@
-export { checkAlias } from 'utils/check-alias/check-alias';
+export { checkAlias } from './check-alias';

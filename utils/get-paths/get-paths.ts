@@ -52,17 +52,10 @@ export function getExpectedPath(
   absolutePath: string,
   baseUrl: string,
   importPrefixToAlias: { [key: string]: string }
-  // onlyPathAliases: boolean,
-  // onlyAbsoluteImports: boolean
 ): string | undefined {
   const relativeToBasePath = path.relative(baseUrl, absolutePath);
-  // if (!onlyAbsoluteImports) {
   for (const prefix of Object.keys(importPrefixToAlias)) {
     const aliasPath = importPrefixToAlias[prefix];
-    // assuming they are either a full path or a path ends with /*, which are the two standard cases
-    const importPrefix = prefix.endsWith('/*')
-      ? prefix.replace('/*', '')
-      : prefix;
     const aliasImport = aliasPath.endsWith('/*')
       ? aliasPath.replace('/*', '')
       : aliasPath;
@@ -73,10 +66,6 @@ export function getExpectedPath(
       );
     }
   }
-  // }
-  // if (!onlyPathAliases) {
-  //   return relativeToBasePath;
-  // }
 }
 
 export function findDirWithFile(filename: string): string | undefined {

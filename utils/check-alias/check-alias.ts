@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import type { Paths } from '@/utils/get-paths/types';
+import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 
 /**
  * For now, we only validate the middle part of the path, which may lead to
@@ -13,8 +14,8 @@ export function checkAlias(
   pathUsed: string,
   paths: Paths
 ): string | false {
-  dirName = toUnixPath(dirName);
-  rootDir = toUnixPath(rootDir);
+  dirName = convertToUnixPath(dirName);
+  rootDir = convertToUnixPath(rootDir);
 
   for (const aliasRegex of Object.keys(paths)) {
     const alias = aliasRegex.slice(0, -2);
@@ -38,6 +39,3 @@ export function checkAlias(
   }
   return false;
 }
-
-const toUnixPath = (path: string): string =>
-  path.replaceAll(/[/\\]+/g, '/').replace(/^([A-Za-z]+:|\.\/)/, '');

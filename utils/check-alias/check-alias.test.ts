@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { describe } from 'vitest';
-import { checkAlias } from 'utils/check-alias/check-alias';
+import { checkAlias } from './check-alias';
 
 describe('checkAlias', () => {
-  it('returns relative import from current directory - 01', async ({
+  it('should return relative import from current directory when given absolute paths - Test Case 1', async ({
     expect,
   }) => {
     expect(
@@ -17,7 +17,8 @@ describe('checkAlias', () => {
       )
     ).toBe('./Button');
   });
-  it('returns relative import from current directory - 02', async ({
+
+  it('should return relative import from current directory when given absolute paths - Test Case 2', async ({
     expect,
   }) => {
     expect(
@@ -26,7 +27,8 @@ describe('checkAlias', () => {
       })
     ).toBe('./get');
   });
-  it('returns relative import from current directory - 03', async ({
+
+  it('should return relative import from current directory when given absolute paths - Test Case 3', async ({
     expect,
   }) => {
     expect(
@@ -40,13 +42,14 @@ describe('checkAlias', () => {
       )
     ).toBe('./NewFarmTypes');
   });
-  it('returns relative import from current directory - 04', async ({
+
+  it('should return relative import from current directory when given absolute paths - Test Case 4', async ({
     expect,
   }) => {
     expect(
       checkAlias(
-        'C:\\Users\\rodri\\projects\\desafio-frontend-web',
-        'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web\\flows\\Farm\\New',
         '@/flows/Farm/New/NewFarmTypes',
         {
           '@/*': ['*'],
@@ -54,13 +57,14 @@ describe('checkAlias', () => {
       )
     ).toBe('./NewFarmTypes');
   });
-  it('returns relative import from current directory - 05', async ({
+
+  it('should return relative import from current directory when given absolute paths - Test Case 5', async ({
     expect,
   }) => {
     expect(
       checkAlias(
-        'C:\\Users\\rodri\\projects\\desafio-frontend-web',
-        'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web\\flows\\Farm\\New',
         '@/flows/Farm/New/components/SaveButton',
         {
           '@/*': ['*'],
