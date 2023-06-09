@@ -107,6 +107,6 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "./index.ts", "./src", "./rules", "./utils", "./vitest.config.ts"
+    "./index.ts", "./rules", "./utils", "./vitest.config.ts"
   ],
 }
