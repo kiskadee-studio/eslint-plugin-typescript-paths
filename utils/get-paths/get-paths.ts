@@ -1,6 +1,7 @@
 import fs, { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import * as jsonParser from 'jsonc-parser';
+import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 import type { BaseURLPaths, Paths, TSConfig } from './types';
 
 function findExistingFile(
@@ -62,7 +63,7 @@ export function getExpectedPath(
     if (aliasImport) {
       return path.posix.join(
         aliasImport,
-        relativeToBasePath.replaceAll('\\', '/')
+        convertToUnixPath(relativeToBasePath)
       );
     }
   }

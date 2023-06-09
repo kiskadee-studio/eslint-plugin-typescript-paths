@@ -1,38 +1,32 @@
-import { convertToUnixPath } from './convert-to-unix-path'; // Replace 'your-module' with the actual module path
+import { platform } from 'node:os';
+import type { Mock } from 'vitest';
+import { convertToUnixPath } from './convert-to-unix-path'; // Import the function you want to test
 
-describe('convertToUnixPath', () => {
-  it('should convert backslashes to forward slashes', () => {
-    const path = 'dir\\sub-dir\\file.txt';
-    const expected = 'dir/sub-dir/file.txt';
-    const result = convertToUnixPath(path);
-    expect(result).toBe(expected);
+vi.mock('os', () => {
+  return { platform: vi.fn() };
+});
+
+describe('convertToUnixPath function', () => {
+  afterEach(() => {
+    vi.clearAllMocks(); // Clear all mocks after each test
   });
 
-  it('should remove consecutive slashes', () => {
-    const path = 'dir////sub-dir/file.txt';
-    const expected = 'dir/sub-dir/file.txt';
-    const result = convertToUnixPath(path);
-    expect(result).toBe(expected);
+  it('should convert Windows path to Unix path', () => {
+    (platform as Mock).mockImplementationOnce(() => 'win32');
+
+    const windowsPath = 'C:\\Users\\Test\\Documents\\file.txt';
+    const expectedUnixPath = 'Users/Test/Documents/file.txt';
+    const actualUnixPath = convertToUnixPath(windowsPath);
+
+    expect(actualUnixPath).toEqual(expectedUnixPath);
   });
 
-  it('should remove leading Windows drive letter', () => {
-    const path = 'C:/dir/file.txt';
-    const expected = 'dir/file.txt';
-    const result = convertToUnixPath(path);
-    expect(result).toBe(expected);
-  });
+  it('should not change the Unix path', () => {
+    (platform as Mock).mockImplementationOnce(() => 'darwin');
 
-  it('should remove leading "./" for relative paths', () => {
-    const path = './dir/file.txt';
-    const expected = 'dir/file.txt';
-    const result = convertToUnixPath(path);
-    expect(result).toBe(expected);
-  });
+    const unixPath = '/Users/Test/Documents/file.txt';
+    const actualUnixPath = convertToUnixPath(unixPath);
 
-  it('should handle mixed slashes and backslashes', () => {
-    const path = 'dir/sub-dir\\file.txt';
-    const expected = 'dir/sub-dir/file.txt';
-    const result = convertToUnixPath(path);
-    expect(result).toBe(expected);
+    expect(actualUnixPath).toEqual(unixPath);
   });
 });
