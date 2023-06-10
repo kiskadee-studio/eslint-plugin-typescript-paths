@@ -52,7 +52,21 @@ describe('getExpectedPath', () => {
       'C:\\Users\\rodri\\projects\\desafio-frontend-web\\src\\components\\Header';
     const paths: Paths = {};
 
-    const expected = 'src/component/Header';
+    const expected = 'src/components/Header';
+    const result = getExpectedPath(absolutePath, baseUrl, paths);
+
+    expect(result).toBe(expected);
+  });
+
+  it('should return the expected path when a match is found - Test 5', () => {
+    const baseUrl = 'C:\\Users\\rodri\\projects\\desafio-frontend-web';
+    const absolutePath =
+      'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New\\flows\\Farm\\New\\components\\Form\\Form.style';
+    const paths: Paths = {
+      '@/*': ['./*'],
+    };
+
+    const expected = '@/flows/Farm/New/components/Form/Form.style';
     const result = getExpectedPath(absolutePath, baseUrl, paths);
 
     expect(result).toBe(expected);

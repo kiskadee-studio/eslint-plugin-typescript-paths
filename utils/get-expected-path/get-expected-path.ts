@@ -52,5 +52,5 @@ export const getExpectedPath: GetExpectedPath = (
     }
   }
 
-  return expectedPath;
+  return expectedPath || relativeToBaseUrl;
 };

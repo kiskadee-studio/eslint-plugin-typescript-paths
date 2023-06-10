@@ -2,8 +2,10 @@ import { ESLintUtils } from '@typescript-eslint/utils';
 import { findDirWithFile, getPaths } from '@/utils/get-paths/get-paths';
 import path from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
+import { convertToUnixPath } from '@/utils/convert-to-unix-path';
+import { checkPathExistence } from '@/utils/check-path-existance';
 
-type MessageIds = 'absoluteParentImport';
+type MessageIds = 'absoluteParentImport' | 'baseUrlUsage';
 
 type Options = [
   {
@@ -17,6 +19,8 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       absoluteParentImport: '{{log}}. Use "{{expectedPath}}"',
+      baseUrlUsage:
+        'Use alias instead of baseUrl {{log}}. Use {{expectedPath}}',
     },
     docs: {
       description:
@@ -52,15 +56,21 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const directoryName = path.dirname(filename);
         const absolutePath = path.join(directoryName, pathUsed);
 
-        // const slashCount = pathUsed.split('/').length - 1;
+        const firstTwoDirectories = pathUsed.split('/').slice(0, 2).join('/');
 
-        // ESLint: {"absolutePath":"C:\\Users\\rodri\\projects\\desafio-frontend-web\\components\\Header","baseUrl":"C:\\Users\\rodri\\projects\\desafio-frontend-web","paths":{"@/*":["*","src/*"],"@request/*":["*","src/request/*"]}}. Use "*/components/Header"(typescript-paths/absolute-parent-import)
+        const regex = new RegExp(firstTwoDirectories.replaceAll('/', '\\/'));
+        const exists = regex.test(directoryName);
+        // const slashCount = pathUsed.split('/').length - 1;
 
         // if (pathUsed.startsWith('../') || slashCount >= 2) {
         if (pathUsed.startsWith('../')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           const log = {
+            firstTwoDirectories,
+            exists,
+            directoryName: convertToUnixPath(directoryName),
+            pathUsed,
             absolutePath,
             baseUrl,
             paths,
@@ -75,6 +85,27 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
             });
+          }
+        } else if (!pathUsed.startsWith('./')) {
+          const relativeToBaseUrl = path.posix.join(baseUrl, pathUsed);
+
+          if (checkPathExistence(relativeToBaseUrl)) {
+            const expectedPath = getExpectedPath(
+              relativeToBaseUrl,
+              baseUrl,
+              paths
+            );
+
+            if (expectedPath && pathUsed !== expectedPath) {
+              context.report({
+                node,
+                messageId: 'baseUrlUsage',
+                data: { expectedPath },
+                fix(fixer) {
+                  return fixer.replaceText(node.source, `'${expectedPath}'`);
+                },
+              });
+            }
           }
         }
       },
