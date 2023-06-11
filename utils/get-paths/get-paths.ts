@@ -1,4 +1,4 @@
-import fs, { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import * as jsonParser from 'jsonc-parser';
 import type { BaseURLPaths, Paths, TSConfig } from './types';
@@ -41,9 +41,9 @@ export function findDirWithFile(filename: string): string | undefined {
 
   do {
     dir = path.dirname(dir);
-  } while (!fs.existsSync(path.join(dir, filename)) && dir !== '/');
+  } while (!existsSync(path.join(dir, filename)) && dir !== '/');
 
-  if (!fs.existsSync(path.join(dir, filename))) {
+  if (!existsSync(path.join(dir, filename))) {
     return;
   }
 
