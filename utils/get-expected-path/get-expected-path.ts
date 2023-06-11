@@ -4,10 +4,6 @@
 import path from 'node:path';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 
-export type ImportPrefixToAlias = {
-  [key: string]: string;
-};
-
 export type GetExpectedPath = (
   absolutePath: string,
   baseUrl: string,

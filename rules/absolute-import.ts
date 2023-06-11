@@ -8,7 +8,7 @@ type MessageIds = 'aliasImports' | 'relativeImports';
 
 type Options = [
   {
-    currentDirectory?: boolean;
+    enableAlias?: boolean;
   }
 ];
 
@@ -31,7 +31,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
       {
         type: 'object',
         properties: {
-          currentDirectory: {
+          enableAlias: {
             type: 'boolean',
           },
         },
@@ -41,10 +41,10 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   },
   defaultOptions: [
     {
-      currentDirectory: false,
+      enableAlias: false,
     },
   ],
-  create(context, [{ currentDirectory }]) {
+  create(context, [{ enableAlias }]) {
     const baseDir = findDirWithFile('package.json');
     const [baseUrl, paths] = getPaths(baseDir);
 
@@ -55,7 +55,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const directoryName = path.dirname(filename);
         const absolutePath = path.join(directoryName, pathUsed);
 
-        if (currentDirectory && pathUsed.startsWith('./')) {
+        if (!enableAlias && pathUsed.startsWith('./')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           if (expectedPath && pathUsed !== expectedPath) {
