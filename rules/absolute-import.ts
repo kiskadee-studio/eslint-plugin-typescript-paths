@@ -4,7 +4,7 @@ import path from 'node:path';
 import { checkAlias } from '@/utils/check-alias';
 import { getExpectedPath } from '@/utils/get-expected-path';
 
-type MessageIds = 'relativeImport' | 'absoluteImport';
+type MessageIds = 'aliasImports' | 'relativeImports';
 
 type Options = [
   {
@@ -17,10 +17,10 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      relativeImport:
-        'Absolute imports are not encouraged when the files are in the same directory or below. Use just "{{expectedPath}}"',
-      absoluteImport:
-        'Relative imports from the current directory are not allowed. Use "{{expectedPath}}"',
+      aliasImports:
+        "1 - Alias imports are not encouraged when the files are in the same directory or below. Use just '{{expectedPath}}'.",
+      relativeImports:
+        "2 - Relative imports from the current directory are not allowed. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
@@ -44,10 +44,9 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
       currentDirectory: false,
     },
   ],
-  create(context, [options]) {
+  create(context, [{ currentDirectory }]) {
     const baseDir = findDirWithFile('package.json');
     const [baseUrl, paths] = getPaths(baseDir);
-    const { currentDirectory } = options;
 
     return {
       ImportDeclaration(node): void {
@@ -62,7 +61,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
-              messageId: 'absoluteImport',
+              messageId: 'relativeImports',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
@@ -70,15 +69,20 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             });
           }
         } else {
-          const alias = checkAlias(baseUrl, directoryName, pathUsed, paths);
+          const expectedPath = checkAlias(
+            baseUrl,
+            directoryName,
+            pathUsed,
+            paths
+          );
 
-          if (alias) {
+          if (expectedPath) {
             context.report({
               node,
-              messageId: 'relativeImport',
-              data: { expectedPath: alias },
+              messageId: 'aliasImports',
+              data: { expectedPath },
               fix(fixer) {
-                return fixer.replaceText(node.source, `'${alias}'`);
+                return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
             });
           }
