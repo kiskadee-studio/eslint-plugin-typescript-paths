@@ -4,7 +4,7 @@ import path from 'node:path';
 import { checkAlias } from '@/utils/check-alias';
 import { getExpectedPath } from '@/utils/get-expected-path';
 
-type MessageIds = 'aliasImports' | 'relativeImports';
+type MessageIds = 'relativeOverAlias' | 'aliasOverRelative';
 
 type Options = [
   {
@@ -17,10 +17,10 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      aliasImports:
-        "1 - Alias imports are not encouraged when the files are in the same directory or below. Use just '{{expectedPath}}'.",
-      relativeImports:
-        "2 - Relative imports from the current directory are not allowed. Use '{{expectedPath}}' instead.",
+      relativeOverAlias:
+        "Prefer relative parent over alias imports. Use '{{expectedPath}}' instead.",
+      aliasOverRelative:
+        "Prefer alias over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
@@ -55,20 +55,20 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const directoryName = path.dirname(filename);
         const absolutePath = path.join(directoryName, pathUsed);
 
-        if (!enableAlias && pathUsed.startsWith('./')) {
+        if (enableAlias && pathUsed.startsWith('./')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
-              messageId: 'relativeImports',
+              messageId: 'aliasOverRelative',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
             });
           }
-        } else {
+        } else if (!enableAlias) {
           const expectedPath = checkAlias(
             baseUrl,
             directoryName,
@@ -79,7 +79,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath) {
             context.report({
               node,
-              messageId: 'aliasImports',
+              messageId: 'relativeOverAlias',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);

@@ -4,7 +4,10 @@ import path from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
 import { checkPathExistence } from '@/utils/check-path-existance';
 
-type MessageIds = 'relativeParentImports' | 'baseUrlImports';
+type MessageIds =
+  | 'aliasOverRelative'
+  | 'aliasOverBaseUrl'
+  | 'baseUrlOverRelative';
 
 type Options = [
   {
@@ -17,10 +20,12 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      relativeParentImports:
-        "3 - Relative parent imports are not allowed. Use '{{expectedPath}}' instead.",
-      baseUrlImports:
-        "4 - Using aliases is recommended over baseUrl. Use '{{expectedPath}}' instead.",
+      aliasOverRelative:
+        "Prefer alias over relative imports. Use '{{expectedPath}}' instead.",
+      aliasOverBaseUrl:
+        "Prefer alias over baseUrl imports. Use '{{expectedPath}}' instead.",
+      baseUrlOverRelative:
+        "Prefer baseUrl over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
@@ -61,7 +66,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
-              messageId: 'relativeParentImports',
+              messageId: 'aliasOverRelative',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
@@ -81,7 +86,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             if (expectedPath && pathUsed !== expectedPath) {
               context.report({
                 node,
-                messageId: 'baseUrlImports',
+                messageId: 'aliasOverBaseUrl',
                 data: { expectedPath },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
