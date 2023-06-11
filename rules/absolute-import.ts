@@ -18,9 +18,9 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       relativeOverAlias:
-        "Prefer relative parent over alias imports. Use '{{expectedPath}}' instead.",
+        "Prefer relative imports over alias imports. Use '{{expectedPath}}' instead.",
       aliasOverRelative:
-        "Prefer alias over relative imports. Use '{{expectedPath}}' instead.",
+        "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:

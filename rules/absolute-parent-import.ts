@@ -21,11 +21,11 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       aliasOverRelative:
-        "Prefer alias over relative imports. Use '{{expectedPath}}' instead.",
+        "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
       aliasOverBaseUrl:
-        "Prefer alias over baseUrl imports. Use '{{expectedPath}}' instead.",
+        "Prefer alias imports over baseUrl imports. Use '{{expectedPath}}' instead.",
       baseUrlOverRelative:
-        "Prefer baseUrl over relative imports. Use '{{expectedPath}}' instead.",
+        "Prefer baseUrl imports over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
