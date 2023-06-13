@@ -5,9 +5,9 @@ import { getExpectedPath } from '@/utils/get-expected-path';
 import { checkPathExistence } from '@/utils/check-path-existance';
 
 type MessageIds =
-  | 'aliasOverRelative'
-  | 'aliasOverBaseUrl'
-  | 'baseUrlOverRelative';
+  | 'aliasImportOverRelative'
+  | 'aliasImportOverBaseUrl'
+  | 'baseUrlImportOverRelative';
 
 type Options = [
   {
@@ -20,11 +20,12 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      aliasOverRelative:
+      // TODO: Fix these messages
+      aliasImportOverRelative:
         "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
-      aliasOverBaseUrl:
+      aliasImportOverBaseUrl:
         "Prefer alias imports over baseUrl imports. Use '{{expectedPath}}' instead.",
-      baseUrlOverRelative:
+      baseUrlImportOverRelative:
         "Prefer baseUrl imports over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
@@ -66,7 +67,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
-              messageId: 'aliasOverRelative',
+              messageId: 'aliasImportOverRelative',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
@@ -86,7 +87,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             if (expectedPath && pathUsed !== expectedPath) {
               context.report({
                 node,
-                messageId: 'aliasOverBaseUrl',
+                messageId: 'aliasImportOverBaseUrl',
                 data: { expectedPath },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { checkAlias } from '@/utils/check-alias';
 import { getExpectedPath } from '@/utils/get-expected-path';
 
-type MessageIds = 'relativeOverAlias' | 'aliasOverRelative';
+type MessageIds = 'relativeImportOverAlias' | 'aliasImportOverRelative';
 
 type Options = [
   {
@@ -17,9 +17,10 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      relativeOverAlias:
+      relativeImportOverAlias:
         "Prefer relative imports over alias imports. Use '{{expectedPath}}' instead.",
-      aliasOverRelative:
+
+      aliasImportOverRelative:
         "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
@@ -61,7 +62,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath && pathUsed !== expectedPath) {
             context.report({
               node,
-              messageId: 'aliasOverRelative',
+              messageId: 'aliasImportOverRelative',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
@@ -79,7 +80,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (expectedPath) {
             context.report({
               node,
-              messageId: 'relativeOverAlias',
+              messageId: 'relativeImportOverAlias',
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
