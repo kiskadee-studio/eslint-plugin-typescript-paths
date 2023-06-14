@@ -2,7 +2,7 @@ import { ESLintUtils } from '@typescript-eslint/utils';
 import { getTSConfigPaths } from '@/utils/get-tsconfig-paths';
 import { posix, dirname, join } from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
-import { checkPathExistence } from '@/utils/check-path-existance';
+import { checkPathExistence } from 'utils/check-path-existence';
 import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds =
