@@ -6,7 +6,7 @@ import type { BaseURLPaths, Paths, TSConfig } from 'utils/get-tsconfig-paths';
 
 export function getTSConfigPaths(rootDir?: string): BaseURLPaths | undefined {
   if (!rootDir) {
-    return undefined;
+    return;
   }
 
   let baseUrl = '';

@@ -11,5 +11,4 @@ export function findExistingFile(
       return filePath;
     }
   }
-  return undefined;
 }

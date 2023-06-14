@@ -1,9 +1,51 @@
-import path from 'node:path'; // Substitua pelo caminho correto do seu módulo
+import { existsSync } from 'node:fs';
+import type { Mock } from 'vitest';
 import { checkPathExistence } from './check-path-existance';
 
-describe('checkPathExistence', () => {
-  test('should return true if file or directory exists', () => {
-    const absolutPath = path.join(__dirname, './mocks/dir/request');
-    expect(checkPathExistence(absolutPath)).toBe(true);
+vi.mock('fs', () => ({ existsSync: vi.fn() }));
+
+describe('checkPathExistence method', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should return true if the path exists', () => {
+    const path = '/path/to/existing/file.txt';
+
+    (existsSync as Mock).mockReturnValue(true);
+
+    const result = checkPathExistence(path);
+
+    expect(result).toBe(true);
+    expect(existsSync).toHaveBeenCalledWith(path);
+  });
+
+  it('should return true if the path with supported extensions exists', () => {
+    const path = '/path/to/file';
+
+    (existsSync as Mock).mockReturnValueOnce(false).mockReturnValueOnce(true);
+
+    const result = checkPathExistence(path);
+
+    expect(result).toBe(true);
+    expect(existsSync).toHaveBeenCalledWith(path);
+    expect(existsSync).toHaveBeenCalledWith(`${path}.ts`);
+    expect(existsSync).toHaveBeenCalledTimes(2);
+  });
+
+  it('should return false if the path and supported extensions do not exist', () => {
+    const path = '/path/to/nonexistent/file';
+
+    (existsSync as Mock).mockReturnValue(false);
+
+    const result = checkPathExistence(path);
+
+    expect(result).toBe(false);
+    expect(existsSync).toHaveBeenCalledWith(path);
+    expect(existsSync).toHaveBeenCalledWith(`${path}.ts`);
+    expect(existsSync).toHaveBeenCalledWith(`${path}.tsx`);
+    expect(existsSync).toHaveBeenCalledWith(`${path}.js`);
+    expect(existsSync).toHaveBeenCalledWith(`${path}.jsx`);
+    expect(existsSync).toHaveBeenCalledTimes(5);
   });
 });
