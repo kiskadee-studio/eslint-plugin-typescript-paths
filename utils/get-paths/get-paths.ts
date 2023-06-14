@@ -1,20 +1,8 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import * as jsonParser from 'jsonc-parser';
+import { findExistingFile } from '@/utils/find-existing-file/find-existing-file';
 import type { BaseURLPaths, Paths, TSConfig } from './types';
-
-function findExistingFile(
-  rootDir: string,
-  files: string[]
-): string | undefined {
-  for (const file of files) {
-    const filePath = path.resolve(rootDir, file);
-    if (existsSync(filePath)) {
-      return filePath;
-    }
-  }
-  return undefined;
-}
 
 export function getPaths(rootDir = ''): BaseURLPaths {
   let baseUrl: string | undefined = '';
