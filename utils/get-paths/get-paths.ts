@@ -1,11 +1,11 @@
 import { existsSync, readFileSync } from 'node:fs';
-import path from 'node:path';
+import { posix, resolve, join, dirname } from 'node:path';
 import * as jsonParser from 'jsonc-parser';
-import { findExistingFile } from '@/utils/find-existing-file/find-existing-file';
-import type { BaseURLPaths, Paths, TSConfig } from './types';
+import { findExistingFile } from '@/utils/find-existing-file';
+import type { BaseURLPaths, Paths, TSConfig } from './get-paths.types';
 
 export function getPaths(rootDir = ''): BaseURLPaths {
-  let baseUrl: string | undefined = '';
+  let baseUrl = '';
   let paths: Paths = {};
 
   const configPath = findExistingFile(rootDir, [
@@ -17,21 +17,22 @@ export function getPaths(rootDir = ''): BaseURLPaths {
     const tsconfig: TSConfig = jsonParser.parse(
       readFileSync(configPath).toString()
     );
-    baseUrl = tsconfig.compilerOptions?.baseUrl;
-    paths = tsconfig.compilerOptions?.paths || {};
+    baseUrl = tsconfig.compilerOptions?.baseUrl ?? './';
+    paths = tsconfig.compilerOptions?.paths ?? {};
   }
 
-  return [path.posix.join(rootDir, baseUrl as string), paths];
+  return { baseUrl: posix.join(rootDir, baseUrl), paths };
 }
 
 export function findDirWithFile(filename: string): string | undefined {
-  let dir = path.resolve(filename);
+  let dir = resolve(filename);
 
   do {
-    dir = path.dirname(dir);
-  } while (!existsSync(path.join(dir, filename)) && dir !== '/');
+    dir = dirname(dir);
+    // TODO: check if this is correct
+  } while (!existsSync(join(dir, filename)) && dir !== '/');
 
-  if (!existsSync(path.join(dir, filename))) {
+  if (!existsSync(join(dir, filename))) {
     return;
   }
 
