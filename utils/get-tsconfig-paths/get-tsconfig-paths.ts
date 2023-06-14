@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { posix } from 'node:path';
+import { resolve } from 'node:path';
 import * as jsonParser from 'jsonc-parser';
 import { findExistingFile } from '@/utils/find-existing-file';
 import type { BaseURLPaths, Paths, TSConfig } from 'utils/get-tsconfig-paths';
@@ -27,7 +27,8 @@ export function getTSConfigPaths(rootDir?: string): BaseURLPaths | undefined {
   }
 
   return {
-    baseUrl: posix.join(rootDir, baseUrl),
+    // rootDir can use \\, baseUrl always uses /
+    baseUrl: resolve(rootDir, baseUrl),
     paths,
   };
 }

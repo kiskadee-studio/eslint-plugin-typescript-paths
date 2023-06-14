@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { findExistingFile } from '@/utils/find-existing-file';
 import type { Mock } from 'vitest';
 import * as jsonParser from 'jsonc-parser';
+import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 import type { Paths, TSConfig } from '.';
 import { getTSConfigPaths } from '.';
 
@@ -46,9 +47,10 @@ describe('getPaths method', () => {
     };
     const expectedBaseURL = '/path/to/project/src';
     const result = getTSConfigPaths(rootDir);
+    result!.baseUrl = convertToUnixPath(result?.baseUrl ?? '');
 
     expect(result).toEqual({
-      baseUrl: expectedBaseURL,
+      baseUrl: convertToUnixPath(expectedBaseURL),
       paths: expectedPaths,
     });
     expect(findExistingFile).toHaveBeenCalledWith(rootDir, [
@@ -64,9 +66,10 @@ describe('getPaths method', () => {
     const expectedPaths: Paths = {};
 
     const result = getTSConfigPaths(rootDir);
+    result!.baseUrl = convertToUnixPath(result?.baseUrl ?? '');
 
     expect(result).toEqual({
-      baseUrl: rootDir,
+      baseUrl: convertToUnixPath(rootDir),
       paths: expectedPaths,
     });
     expect(findExistingFile).toHaveBeenCalledWith(rootDir, [
