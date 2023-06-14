@@ -1,5 +1,5 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { findDirWithFile, getPaths } from '@/utils/get-paths/get-paths';
+import { findDirWithFile, getTSConfigPaths } from '@/utils/get-tsconfig-paths';
 import path from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
 import { checkPathExistence } from '@/utils/check-path-existance';
@@ -51,8 +51,8 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     },
   ],
   create(context, [{ preferPathOverBaseUrl }]) {
-    const baseDir = findDirWithFile('package.json');
-    const [baseUrl, paths] = getPaths(baseDir);
+    const rootDir = findDirWithFile('package.json');
+    const { baseUrl, paths } = getTSConfigPaths(rootDir);
 
     return {
       ImportDeclaration(node): void {

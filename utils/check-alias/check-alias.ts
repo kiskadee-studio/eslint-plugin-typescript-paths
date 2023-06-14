@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import type { Paths } from '@/utils/get-paths/get-paths.types';
+import type { Paths } from '@/utils/get-tsconfig-paths';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
 
 export function checkAlias(

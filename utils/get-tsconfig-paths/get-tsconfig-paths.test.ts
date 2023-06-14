@@ -3,7 +3,7 @@ import { findExistingFile } from '@/utils/find-existing-file';
 import type { Mock } from 'vitest';
 import * as jsonParser from 'jsonc-parser';
 import type { Paths, TSConfig } from '.';
-import { getPaths } from '.';
+import { getTSConfigPaths } from '.';
 
 vi.mock('fs', () => ({
   readFileSync: vi.fn(),
@@ -45,7 +45,7 @@ describe('getPaths method', () => {
       'components/*': ['src/components/*'],
     };
     const expectedBaseURL = '/path/to/project/src';
-    const result = getPaths(rootDir);
+    const result = getTSConfigPaths(rootDir);
 
     expect(result).toEqual({
       baseUrl: expectedBaseURL,
@@ -63,7 +63,7 @@ describe('getPaths method', () => {
     const rootDir = '/path/to/project';
     const expectedPaths: Paths = {};
 
-    const result = getPaths(rootDir);
+    const result = getTSConfigPaths(rootDir);
 
     expect(result).toEqual({
       baseUrl: rootDir,
@@ -73,6 +73,16 @@ describe('getPaths method', () => {
       'tsconfig.json',
       'jsconfig.json',
     ]);
+    expect(readFileSync).not.toHaveBeenCalled();
+    expect(jsonParser.parse).not.toHaveBeenCalled();
+  });
+
+  it('should return undefined when rootDir is not specified', () => {
+    const rootDir: string | undefined = undefined;
+    const result = getTSConfigPaths(rootDir);
+
+    expect(result).toBeUndefined();
+    expect(findExistingFile).not.toHaveBeenCalled();
     expect(readFileSync).not.toHaveBeenCalled();
     expect(jsonParser.parse).not.toHaveBeenCalled();
   });
