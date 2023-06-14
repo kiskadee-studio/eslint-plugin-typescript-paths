@@ -1,8 +1,9 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { findDirWithFile, getTSConfigPaths } from '@/utils/get-tsconfig-paths';
-import path from 'node:path';
+import { getTSConfigPaths } from '@/utils/get-tsconfig-paths';
+import { dirname, join } from 'node:path';
 import { checkAlias } from '@/utils/check-alias';
 import { getExpectedPath } from '@/utils/get-expected-path';
+import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds = 'relativeImportOverAlias' | 'aliasImportOverRelative';
 
@@ -46,7 +47,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     },
   ],
   create(context, [{ enableAlias }]) {
-    const rootDir = findDirWithFile('package.json');
+    const rootDir = searchForFileDirectory('package.json');
     const config = getTSConfigPaths(rootDir);
 
     if (!config) {
@@ -59,8 +60,8 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
       ImportDeclaration(node): void {
         const pathUsed = node.source.value;
         const filename = context.getFilename();
-        const directoryName = path.dirname(filename);
-        const absolutePath = path.join(directoryName, pathUsed);
+        const directoryName = dirname(filename);
+        const absolutePath = join(directoryName, pathUsed);
 
         if (enableAlias && pathUsed.startsWith('./')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);

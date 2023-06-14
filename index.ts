@@ -9,3 +9,4 @@ export const rules = {
   'absolute-export': absoluteExport,
   'absolute-parent-export': absoluteParentExport,
 };
+export { searchForFileDirectory } from '@/utils/search-for-file-directory/search-for-file-directory';

@@ -1,8 +1,9 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { findDirWithFile, getTSConfigPaths } from '@/utils/get-tsconfig-paths';
-import path from 'node:path';
+import { getTSConfigPaths } from '@/utils/get-tsconfig-paths';
+import { posix, dirname, join } from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
 import { checkPathExistence } from '@/utils/check-path-existance';
+import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds =
   | 'aliasOverRelative'
@@ -50,7 +51,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     },
   ],
   create(context, [{ preferPathOverBaseUrl }]) {
-    const rootDir = findDirWithFile('package.json');
+    const rootDir = searchForFileDirectory('package.json');
     const config = getTSConfigPaths(rootDir);
 
     if (!config) {
@@ -64,8 +65,8 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         if (node.source) {
           const pathUsed = node.source.value;
           const filename = context.getFilename();
-          const directoryName = path.dirname(filename);
-          const absolutePath = path.join(directoryName, pathUsed);
+          const directoryName = dirname(filename);
+          const absolutePath = join(directoryName, pathUsed);
 
           if (pathUsed.startsWith('../')) {
             const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
@@ -81,7 +82,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
               });
             }
           } else if (!pathUsed.startsWith('./') && preferPathOverBaseUrl) {
-            const relativeToBaseUrl = path.posix.join(baseUrl, pathUsed);
+            const relativeToBaseUrl = posix.join(baseUrl, pathUsed);
 
             if (checkPathExistence(relativeToBaseUrl)) {
               const expectedPath = getExpectedPath(
