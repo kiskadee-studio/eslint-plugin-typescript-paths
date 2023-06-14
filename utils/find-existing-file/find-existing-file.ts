@@ -1,4 +1,4 @@
-import path from 'node:path';
+import { posix } from 'node:path';
 import { existsSync } from 'node:fs';
 
 export function findExistingFile(
@@ -6,7 +6,7 @@ export function findExistingFile(
   files: string[]
 ): string | undefined {
   for (const file of files) {
-    const filePath = path.posix.resolve(rootDir, file);
+    const filePath = posix.resolve(rootDir, file);
     if (existsSync(filePath)) {
       return filePath;
     }

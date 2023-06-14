@@ -1,5 +1,5 @@
-import type { Paths } from '@/utils/get-expected-path/get-expected-path.types';
-import { getExpectedPath } from './get-expected-path';
+import type { Paths } from '@/utils/get-tsconfig-paths';
+import { getExpectedPath } from '.';
 
 describe('getExpectedPath method', () => {
   it('should return the expected path when a match is found - Test 1', () => {

@@ -1,6 +1,6 @@
 import { platform } from 'node:os';
 import type { Mock } from 'vitest';
-import { convertToUnixPath } from './convert-to-unix-path'; // Import the function you want to test
+import { convertToUnixPath } from '.'; // Import the function you want to test
 
 vi.mock('os', () => {
   return { platform: vi.fn() };

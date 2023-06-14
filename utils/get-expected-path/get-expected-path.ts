@@ -3,13 +3,13 @@
 
 import { posix } from 'node:path';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
-import type { GetExpectedPath } from './get-expected-path.types';
+import type { Paths } from '@/utils/get-tsconfig-paths';
 
-export const getExpectedPath: GetExpectedPath = (
-  absolutePath,
-  baseUrl,
-  paths
-) => {
+export function getExpectedPath(
+  absolutePath: string,
+  baseUrl: string,
+  paths: Paths
+): string {
   absolutePath = convertToUnixPath(absolutePath);
   baseUrl = convertToUnixPath(baseUrl);
 
@@ -42,4 +42,4 @@ export const getExpectedPath: GetExpectedPath = (
   }
 
   return expectedPath || relativeToBaseUrl;
-};
+}

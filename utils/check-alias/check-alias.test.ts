@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { describe } from 'vitest';
-import { checkAlias } from './check-alias';
+import { checkAlias } from '.';
 
 describe('checkAlias', () => {
   it('should return relative import from current directory when given absolute paths - Test Case 1', async ({

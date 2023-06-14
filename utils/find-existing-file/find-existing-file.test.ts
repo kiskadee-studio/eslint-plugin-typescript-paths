@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import type { Mock } from 'vitest';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
-import { findExistingFile } from './find-existing-file';
+import { findExistingFile } from '.';
 
 vi.mock('fs', () => {
   return { existsSync: vi.fn() };
