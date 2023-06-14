@@ -52,7 +52,13 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   ],
   create(context, [{ preferPathOverBaseUrl }]) {
     const rootDir = findDirWithFile('package.json');
-    const { baseUrl, paths } = getTSConfigPaths(rootDir);
+    const config = getTSConfigPaths(rootDir);
+
+    if (!config) {
+      return {};
+    }
+
+    const { baseUrl, paths } = config;
 
     return {
       ImportDeclaration(node): void {
