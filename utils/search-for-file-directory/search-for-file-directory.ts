@@ -1,19 +1,12 @@
-/* eslint-disable unicorn/prefer-module */
 import { existsSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, resolve, join } from 'node:path';
 
-export function searchForFileDirectory(
-  filename: string,
-  dir: string = __dirname
-): string | undefined {
-  if (existsSync(join(dir, filename))) {
-    return dir;
+export function searchForFileDirectory(filename: string): string | undefined {
+  let dir = resolve(filename);
+
+  while (dir !== '/' && !existsSync(join(dir, filename))) {
+    dir = dirname(dir);
   }
 
-  const parentDir = dirname(dir);
-  if (parentDir === dir) {
-    return;
-  }
-
-  return searchForFileDirectory(filename, parentDir);
+  return existsSync(join(dir, filename)) ? dir : undefined;
 }

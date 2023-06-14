@@ -9,6 +9,14 @@ describe('checkPathExistence method', () => {
     vi.clearAllMocks();
   });
 
+  // it('should return true if the path exists 0', () => {
+  //   const result = checkPathExistence(
+  //     'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New\\components\\Form\\Form.style'
+  //   );
+  //
+  //   expect(result).toBe(true);
+  // });
+
   it('should return true if the path exists', () => {
     const path = '/path/to/existing/file.txt';
 

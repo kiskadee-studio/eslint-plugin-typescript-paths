@@ -1,1 +1,1 @@
-export { checkPathExistence } from 'utils/check-path-existence/check-path-existence';
+export { checkPathExistence } from './check-path-existence';
