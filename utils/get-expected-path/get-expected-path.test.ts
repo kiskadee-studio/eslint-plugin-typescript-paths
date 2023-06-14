@@ -1,8 +1,8 @@
-import type { Paths } from './get-expected-path';
+import type { Paths } from '@/utils/get-expected-path/get-expected-path.types';
 import { getExpectedPath } from './get-expected-path';
 
-describe('getExpectedPath', () => {
-  it('should return the expected path when a match is found', () => {
+describe('getExpectedPath method', () => {
+  it('should return the expected path when a match is found - Test 1', () => {
     const baseUrl = '/base';
     const absolutePath = '/base/path/to/file';
     const paths: Paths = {
@@ -17,9 +17,8 @@ describe('getExpectedPath', () => {
   });
 
   it('should return the expected path when a match is found - Test 2', () => {
-    const baseUrl = 'C:\\Users\\rodri\\projects\\desafio-frontend-web';
-    const absolutePath =
-      'C:\\Users\\rodri\\projects\\desafio-frontend-web\\src\\components\\Header';
+    const baseUrl = 'C:\\path\\to\\base';
+    const absolutePath = 'C:\\path\\to\\base\\src\\components\\Header';
     const paths: Paths = {
       '@component': ['src/visual/*', 'src/components/*'],
       '@/*': ['src/*'],
@@ -32,9 +31,8 @@ describe('getExpectedPath', () => {
   });
 
   it('should return the expected path when a match is found - Test 3', () => {
-    const baseUrl = 'C:\\Users\\rodri\\projects\\desafio-frontend-web';
-    const absolutePath =
-      'C:\\Users\\rodri\\projects\\desafio-frontend-web\\src\\components\\Header';
+    const baseUrl = 'C:\\path\\to\\base';
+    const absolutePath = 'C:\\path\\to\\base\\src\\components\\Header';
     const paths: Paths = {
       '@component': ['src/components/*', 'src/visual/*'],
       '@/*': ['src/*'],
@@ -47,9 +45,8 @@ describe('getExpectedPath', () => {
   });
 
   it('should return the expected path when a match is found - Test 4', () => {
-    const baseUrl = 'C:\\Users\\rodri\\projects\\desafio-frontend-web';
-    const absolutePath =
-      'C:\\Users\\rodri\\projects\\desafio-frontend-web\\src\\components\\Header';
+    const baseUrl = 'C:\\path\\to\\base';
+    const absolutePath = 'C:\\path\\to\\base\\src\\components\\Header';
     const paths: Paths = {};
 
     const expected = 'src/components/Header';
@@ -59,14 +56,14 @@ describe('getExpectedPath', () => {
   });
 
   it('should return the expected path when a match is found - Test 5', () => {
-    const baseUrl = 'C:\\Users\\rodri\\projects\\desafio-frontend-web';
+    const baseUrl = 'C:\\path\\to\\base';
     const absolutePath =
-      'C:\\Users\\rodri\\projects\\desafio-frontend-web\\flows\\Farm\\New\\flows\\Farm\\New\\components\\Form\\Form.style';
+      'C:\\path\\to\\base\\flows\\User\\New\\components\\Form\\Form.style';
     const paths: Paths = {
       '@/*': ['./*'],
     };
 
-    const expected = '@/flows/Farm/New/components/Form/Form.style';
+    const expected = '@/flows/User/New/components/Form/Form.style';
     const result = getExpectedPath(absolutePath, baseUrl, paths);
 
     expect(result).toBe(expected);

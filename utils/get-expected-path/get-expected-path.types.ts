@@ -1,9 +1,7 @@
-export type ImportPrefixToAlias = {
-  [key: string]: string;
-};
+export type Paths = { [key: string]: string[] };
 
 export type GetExpectedPath = (
   absolutePath: string,
   baseUrl: string,
-  importPrefixToAlias: ImportPrefixToAlias
+  paths: Paths
 ) => string | undefined;

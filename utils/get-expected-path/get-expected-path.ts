@@ -1,16 +1,9 @@
 /* eslint-disable no-unreachable-loop,no-param-reassign */
 // noinspection LoopStatementThatDoesntLoopJS
 
-import path from 'node:path';
+import { posix } from 'node:path';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
-
-export type GetExpectedPath = (
-  absolutePath: string,
-  baseUrl: string,
-  paths: Paths
-) => string | undefined;
-
-export type Paths = { [key: string]: string[] };
+import type { GetExpectedPath } from './get-expected-path.types';
 
 export const getExpectedPath: GetExpectedPath = (
   absolutePath,
@@ -20,7 +13,7 @@ export const getExpectedPath: GetExpectedPath = (
   absolutePath = convertToUnixPath(absolutePath);
   baseUrl = convertToUnixPath(baseUrl);
 
-  const relativeToBaseUrl = path.posix.relative(baseUrl, absolutePath);
+  const relativeToBaseUrl = posix.relative(baseUrl, absolutePath);
   let expectedPath = '';
 
   for (const aliasRegex of Object.keys(paths)) {
@@ -36,9 +29,9 @@ export const getExpectedPath: GetExpectedPath = (
         partialPath = originPath.replace('/*', '');
       }
 
-      const newPath = path.posix.relative(partialPath, relativeToBaseUrl);
+      const newPath = posix.relative(partialPath, relativeToBaseUrl);
       if (!newPath.startsWith('.')) {
-        expectedPath = path.posix.join(alias, newPath);
+        expectedPath = posix.join(alias, newPath);
         break;
       }
     }
