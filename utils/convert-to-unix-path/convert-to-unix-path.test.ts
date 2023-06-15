@@ -6,7 +6,7 @@ vi.mock('os', () => {
   return { platform: vi.fn() };
 });
 
-describe('convertToUnixPath function', () => {
+describe('convertToUnixPath method', () => {
   afterEach(() => {
     vi.clearAllMocks(); // Clear all mocks after each test
   });

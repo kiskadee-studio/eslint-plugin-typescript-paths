@@ -7,7 +7,7 @@ vi.mock('fs', () => {
   return { existsSync: vi.fn() };
 });
 
-describe('findExistingFile', () => {
+describe('findExistingFile method', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
