@@ -21,13 +21,12 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      // TODO: Fix these messages
       aliasImportOverRelative:
-        "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
+        "3 - Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead.",
       aliasImportOverBaseUrl:
-        "Prefer alias imports over baseUrl imports. Use '{{expectedPath}}' instead.",
+        "4 - Alias imports must be used over baseUrl imports. Use '{{expectedPath}}' instead.",
       baseUrlImportOverRelative:
-        "Prefer baseUrl imports over relative imports. Use '{{expectedPath}}' instead.",
+        "5 - BaseUrl imports must be used over parent relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:

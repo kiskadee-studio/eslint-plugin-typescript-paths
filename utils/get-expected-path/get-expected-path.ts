@@ -13,6 +13,10 @@ export function getExpectedPath(
   absolutePath = convertToUnixPath(absolutePath);
   baseUrl = convertToUnixPath(baseUrl);
 
+  /**
+   * Given that baseUrl and absolutPath are in Unix format, posix is used to
+   * maintain compatibility.
+   */
   const relativeToBaseUrl = posix.relative(baseUrl, absolutePath);
   let expectedPath = '';
 
@@ -29,6 +33,9 @@ export function getExpectedPath(
         partialPath = originPath.replace('/*', '');
       }
 
+      /**
+       * Both newPath and expectedPath should be in Unix format.
+       */
       const newPath = posix.relative(partialPath, relativeToBaseUrl);
       if (!newPath.startsWith('.')) {
         expectedPath = posix.join(alias, newPath);

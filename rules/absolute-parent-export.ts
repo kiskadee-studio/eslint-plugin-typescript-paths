@@ -6,9 +6,9 @@ import { checkPathExistence } from 'utils/check-path-existence';
 import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds =
-  | 'aliasOverRelative'
-  | 'aliasOverBaseUrl'
-  | 'baseUrlOverRelative';
+  | 'aliasExportOverRelative'
+  | 'aliasExportOverBaseUrl'
+  | 'baseUrlExportOverRelative';
 
 type Options = [
   {
@@ -21,12 +21,12 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
-      aliasOverRelative:
-        "Prefer alias exports over relative exports. Use '{{expectedPath}}' instead.",
-      aliasOverBaseUrl:
-        "Prefer alias exports over baseUrl exports. Use '{{expectedPath}}' instead.",
-      baseUrlOverRelative:
-        "Prefer baseUrl exports over relative exports. Use '{{expectedPath}}' instead.",
+      aliasExportOverRelative:
+        "33 - Alias exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
+      aliasExportOverBaseUrl:
+        "44 - Alias exports must be used over baseUrl exports. Use '{{expectedPath}}' instead.",
+      baseUrlExportOverRelative:
+        "55 - BaseUrl exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
@@ -74,7 +74,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             if (expectedPath && pathUsed !== expectedPath) {
               context.report({
                 node,
-                messageId: 'aliasOverRelative',
+                messageId: 'aliasExportOverRelative',
                 data: { expectedPath },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
@@ -94,7 +94,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
               if (expectedPath && pathUsed !== expectedPath) {
                 context.report({
                   node,
-                  messageId: 'aliasOverBaseUrl',
+                  messageId: 'aliasExportOverBaseUrl',
                   data: { expectedPath },
                   fix(fixer) {
                     return fixer.replaceText(node.source, `'${expectedPath}'`);

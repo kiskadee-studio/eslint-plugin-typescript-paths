@@ -19,10 +19,9 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       relativeImportOverAlias:
-        "Prefer relative imports over alias imports. Use '{{expectedPath}}' instead.",
-
+        "1 - Use relative import for exports within the same directory for consistency. Use '{{expectedPath}}' instead.",
       aliasImportOverRelative:
-        "Prefer alias imports over relative imports. Use '{{expectedPath}}' instead.",
+        "2 - Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
