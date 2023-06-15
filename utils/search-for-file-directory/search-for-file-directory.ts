@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
-import { dirname, resolve, join } from 'node:path';
+import { dirname, join, parse, resolve } from 'node:path';
 
 export function searchForFileDirectory(filename: string): string | undefined {
   let dir = resolve(filename);
 
-  while (dir !== '/' && !existsSync(join(dir, filename))) {
+  while (dir !== parse(dir).root && !existsSync(join(dir, filename))) {
     dir = dirname(dir);
   }
 

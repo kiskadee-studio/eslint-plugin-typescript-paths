@@ -22,11 +22,11 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       aliasExportOverRelative:
-        "33 - Alias exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
+        "Alias exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
       aliasExportOverBaseUrl:
-        "44 - Alias exports must be used over baseUrl exports. Use '{{expectedPath}}' instead.",
+        "Alias exports must be used over baseUrl exports. Use '{{expectedPath}}' instead.",
       baseUrlExportOverRelative:
-        "55 - BaseUrl exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
+        "BaseUrl exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:

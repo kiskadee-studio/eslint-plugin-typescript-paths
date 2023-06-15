@@ -19,9 +19,9 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       relativeExportOverAlias:
-        "11 - Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead.",
+        "Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead.",
       aliasExportOverRelative:
-        "22 - Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead.",
+        "Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
