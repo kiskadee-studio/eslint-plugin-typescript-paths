@@ -8,7 +8,7 @@ vi.mock('os', () => {
 
 describe('convertToUnixPath method', () => {
   afterEach(() => {
-    vi.clearAllMocks(); // Clear all mocks after each test
+    vi.clearAllMocks();
   });
 
   it('should convert Windows path to Unix path', () => {
