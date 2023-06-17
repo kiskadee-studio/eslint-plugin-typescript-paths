@@ -20,7 +20,7 @@ describe('findExistingFile method', () => {
     (existsSync as Mock).mockReturnValueOnce(true);
 
     const result = convertToUnixPath(findExistingFile(rootDir, files) || '');
-    const expectedPath = convertToUnixPath('path/to/root/file2.txt');
+    const expectedPath = convertToUnixPath('/path/to/root/file2.txt');
 
     expect(result).toBe(expectedPath);
   });
