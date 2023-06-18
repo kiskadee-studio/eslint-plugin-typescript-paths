@@ -16,17 +16,19 @@ type Options = [
   }
 ];
 
+const debug = false;
+
 export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
       relativeImportOverAlias:
-        "Use relative import for imports within the same directory for consistency {{log}}. Use '{{expectedPath}}' instead.",
+        "i1 - Use relative import for imports within the same directory for consistency. Use '{{expectedPath}}' instead. {{log}}",
       aliasImportOverRelative:
-        "Alias imports can also be used for imports within the same directory {{log}}. Use '{{expectedPath}}' instead.",
+        "i2 - Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead. {{log}}",
       baseUrlImportOverRelative:
-        "BaseUrl imports must be used over relative imports {{log}}. Use '{{expectedPath}}' instead.",
+        "i3 - BaseUrl imports must be used over relative imports. Use '{{expectedPath}}' instead. {{log}}",
     },
     docs: {
       description:
@@ -86,13 +88,13 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             context.report({
               node,
               messageId,
-              data: { expectedPath, log },
+              data: { expectedPath, log: debug ? log : '' },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
             });
           }
-        } else if (!enableAlias) {
+        } else if (!enableAlias || debug) {
           const expectedPath = checkAlias(
             baseUrl,
             directoryName,
@@ -100,7 +102,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             paths
           );
 
-          if (expectedPath || true) {
+          if (expectedPath || debug) {
             const log = JSON.stringify({
               pathUsed,
               absolutePath,
@@ -112,7 +114,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             context.report({
               node,
               messageId: 'relativeImportOverAlias',
-              data: { expectedPath, log },
+              data: { expectedPath, log: debug ? log : '' },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },

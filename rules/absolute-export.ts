@@ -5,7 +5,10 @@ import { checkAlias } from '@/utils/check-alias';
 import { getExpectedPath } from '@/utils/get-expected-path';
 import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
-type MessageIds = 'relativeExportOverAlias' | 'aliasExportOverRelative';
+type MessageIds =
+  | 'relativeExportOverAlias'
+  | 'aliasExportOverRelative'
+  | 'baseUrlExportOverRelative';
 
 type Options = [
   {
@@ -13,15 +16,19 @@ type Options = [
   }
 ];
 
+const debug = false;
+
 export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
       relativeExportOverAlias:
-        "Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead.",
+        "e1 - Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead. {{log}}",
       aliasExportOverRelative:
-        "Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead.",
+        "e2 - Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead. {{log}}",
+      baseUrlExportOverRelative:
+        "e3 - BaseUrl exports must be used over relative exports. Use '{{expectedPath}}' instead. {{log}}",
     },
     docs: {
       description:
@@ -66,11 +73,23 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (enableAlias && pathUsed.startsWith('./')) {
             const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
-            if (expectedPath && pathUsed !== expectedPath) {
+            const log = JSON.stringify({
+              pathUsed,
+              absolutePath,
+              baseUrl,
+              paths,
+            });
+
+            if ((expectedPath && pathUsed !== expectedPath) || debug) {
+              const messageId =
+                Object.keys(paths).length > 0
+                  ? 'aliasExportOverRelative'
+                  : 'baseUrlExportOverRelative';
+
               context.report({
                 node,
-                messageId: 'aliasExportOverRelative',
-                data: { expectedPath },
+                messageId,
+                data: { expectedPath, log: debug ? log : '' },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },
@@ -84,11 +103,19 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
               paths
             );
 
-            if (expectedPath) {
+            if (expectedPath || debug) {
+              const log = JSON.stringify({
+                pathUsed,
+                absolutePath,
+                directoryName,
+                baseUrl,
+                paths,
+              });
+
               context.report({
                 node,
                 messageId: 'relativeExportOverAlias',
-                data: { expectedPath },
+                data: { expectedPath, log: debug ? log : '' },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },

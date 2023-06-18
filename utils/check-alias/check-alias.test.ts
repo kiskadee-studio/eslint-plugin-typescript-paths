@@ -1,10 +1,13 @@
 import { platform } from 'node:os';
 import type { Mock } from 'vitest';
+import { checkPathExistence } from '@/utils/check-path-existence';
 import { checkAlias } from '.';
 
-vi.mock('os', () => {
-  return { platform: vi.fn() };
-});
+vi.mock('os', () => ({ platform: vi.fn() }));
+
+vi.mock('@/utils/check-path-existence', () => ({
+  checkPathExistence: vi.fn(),
+}));
 
 describe('checkAlias function', () => {
   afterEach(() => {
@@ -85,16 +88,51 @@ describe('checkAlias function', () => {
     ).toBe('./components/SaveButton');
   });
 
-  // it('should return relative import from current directory when given absolute paths - Test Case 6', async ({
-  //   expect,
-  // }) => {
-  //   expect(
-  //     checkAlias(
-  //       'C:\\Users\\rodri\\projects\\desafio-frontend-web',
-  //       'C:\\Users\\rodri\\projects\\desafio-frontend-web',
-  //       'hello.type',
-  //       {}
-  //     )
-  //   ).toBe('./hello.type');
-  // });
+  it('should return relative import from current directory when given absolute paths - Test Case 6', async ({
+    expect,
+  }) => {
+    (platform as Mock).mockImplementation(() => 'win32');
+    (checkPathExistence as Mock).mockImplementation(() => true);
+
+    expect(
+      checkAlias(
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'hello.type',
+        {}
+      )
+    ).toBe('./hello.type');
+  });
+
+  it('should return relative import from current directory when given absolute paths - Test Case 7', async ({
+    expect,
+  }) => {
+    (platform as Mock).mockImplementation(() => 'win32');
+    (checkPathExistence as Mock).mockImplementation(() => true);
+
+    expect(
+      checkAlias(
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web\\flows\\Farm\\New',
+        'components/Header',
+        {}
+      )
+    ).toBe(false);
+  });
+
+  it('should return relative import from current directory when given absolute paths - Test Case 8', async ({
+    expect,
+  }) => {
+    (platform as Mock).mockImplementation(() => 'win32');
+    (checkPathExistence as Mock).mockImplementation(() => true);
+
+    expect(
+      checkAlias(
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
+        'hello.type',
+        {}
+      )
+    ).toBe('./hello.type');
+  });
 });

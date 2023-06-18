@@ -1,6 +1,8 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign,unicorn/prefer-module */
 import type { Paths } from '@/utils/get-tsconfig-paths';
 import { convertToUnixPath } from '@/utils/convert-to-unix-path';
+import { join } from 'node:path';
+import { checkPathExistence } from '@/utils/check-path-existence';
 
 export function checkAlias(
   rootDir: string,
@@ -8,6 +10,15 @@ export function checkAlias(
   pathUsed: string,
   paths: Paths
 ): string | false {
+  if (
+    !pathUsed.startsWith('./') &&
+    Object.keys(paths).length === 0 &&
+    checkPathExistence(join(rootDir, pathUsed)) &&
+    dirName === rootDir
+  ) {
+    return `./${pathUsed}`;
+  }
+
   dirName = convertToUnixPath(dirName);
   rootDir = convertToUnixPath(rootDir);
 

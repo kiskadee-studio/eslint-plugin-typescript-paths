@@ -16,17 +16,19 @@ type Options = [
   }
 ];
 
+const debug = false;
+
 export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
       aliasExportOverRelative:
-        "Alias exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
+        "e4 - Alias exports must be used over parent relative exports. Use '{{expectedPath}}' instead. {{log}}.",
       aliasExportOverBaseUrl:
-        "Alias exports must be used over baseUrl exports. Use '{{expectedPath}}' instead.",
+        "e5 - Alias exports must be used over baseUrl exports. Use '{{expectedPath}}' instead. {{log}}.",
       baseUrlExportOverRelative:
-        "BaseUrl exports must be used over parent relative exports. Use '{{expectedPath}}' instead.",
+        "e6 - BaseUrl exports must be used over parent relative exports. Use '{{expectedPath}}' instead. {{log}}.",
     },
     docs: {
       description:
@@ -71,11 +73,22 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           if (pathUsed.startsWith('../')) {
             const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
-            if (expectedPath && pathUsed !== expectedPath) {
+            if ((expectedPath && pathUsed !== expectedPath) || debug) {
+              const messageId =
+                Object.keys(paths).length > 0
+                  ? 'aliasExportOverRelative'
+                  : 'baseUrlExportOverRelative';
+
+              const log = JSON.stringify({
+                absolutePath,
+                baseUrl,
+                paths,
+              });
+
               context.report({
                 node,
-                messageId: 'aliasExportOverRelative',
-                data: { expectedPath },
+                messageId,
+                data: { expectedPath, log: debug ? log : '' },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },
@@ -91,11 +104,17 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
                 paths
               );
 
-              if (expectedPath && pathUsed !== expectedPath) {
+              const log = JSON.stringify({
+                relativeToBaseUrl,
+                baseUrl,
+                paths,
+              });
+
+              if ((expectedPath && pathUsed !== expectedPath) || debug) {
                 context.report({
                   node,
                   messageId: 'aliasExportOverBaseUrl',
-                  data: { expectedPath },
+                  data: { expectedPath, log: debug ? log : '' },
                   fix(fixer) {
                     return fixer.replaceText(node.source, `'${expectedPath}'`);
                   },
