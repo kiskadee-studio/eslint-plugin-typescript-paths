@@ -1,6 +1,16 @@
+import { platform } from 'node:os';
+import type { Mock } from 'vitest';
 import { checkAlias } from '.';
 
-describe('checkAlias', () => {
+vi.mock('os', () => {
+  return { platform: vi.fn() };
+});
+
+describe('checkAlias function', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should return relative import from current directory when given absolute paths - Test Case 1', async ({
     expect,
   }) => {
@@ -44,6 +54,8 @@ describe('checkAlias', () => {
   it('should return relative import from current directory when given absolute paths - Test Case 4', async ({
     expect,
   }) => {
+    (platform as Mock).mockImplementation(() => 'win32');
+
     expect(
       checkAlias(
         'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
@@ -59,6 +71,8 @@ describe('checkAlias', () => {
   it('should return relative import from current directory when given absolute paths - Test Case 5', async ({
     expect,
   }) => {
+    (platform as Mock).mockImplementation(() => 'win32');
+
     expect(
       checkAlias(
         'C:\\Users\\rodrigo\\projects\\desafio-frontend-web',
