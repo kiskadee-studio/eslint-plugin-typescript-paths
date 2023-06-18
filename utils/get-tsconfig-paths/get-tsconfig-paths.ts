@@ -27,7 +27,9 @@ export function getTSConfigPaths(rootDir?: string): BaseURLPaths | undefined {
   }
 
   return {
-    // rootDir can use \\, baseUrl always uses /
+    /**
+     * rootDir can use \\, baseUrl always uses /
+     */
     baseUrl: resolve(rootDir, baseUrl),
     paths,
   };

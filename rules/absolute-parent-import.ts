@@ -71,9 +71,14 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           if (expectedPath && pathUsed !== expectedPath) {
+            const messageId =
+              Object.keys(paths).length > 0
+                ? 'aliasImportOverRelative'
+                : 'baseUrlImportOverRelative';
+
             context.report({
               node,
-              messageId: 'aliasImportOverRelative',
+              messageId,
               data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);

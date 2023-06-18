@@ -70,4 +70,17 @@ describe('checkAlias', () => {
       )
     ).toBe('./components/SaveButton');
   });
+
+  // it('should return relative import from current directory when given absolute paths - Test Case 6', async ({
+  //   expect,
+  // }) => {
+  //   expect(
+  //     checkAlias(
+  //       'C:\\Users\\rodri\\projects\\desafio-frontend-web',
+  //       'C:\\Users\\rodri\\projects\\desafio-frontend-web',
+  //       'hello.type',
+  //       {}
+  //     )
+  //   ).toBe('./hello.type');
+  // });
 });
