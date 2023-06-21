@@ -2,6 +2,7 @@
   "name": "eslint-plugin-typescript-paths",
   "version": "0.0.1",
   "main": "./dist/index.js",
+  "files": ["dist"],
   "dependencies": {
     "jsonc-parser": "^3.2.0"
   },
