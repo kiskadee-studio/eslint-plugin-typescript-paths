@@ -1,8 +1,8 @@
 {
   "name": "eslint-plugin-typescript-paths",
-  "version": "0.0.12",
-  "main": "./dist/index.js",
-  "files": ["dist/*"],
+  "version": "0.0.13",
+  "main": "dist/index.js",
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
   "dependencies": {
     "jsonc-parser": "^3.2.0"
   },
