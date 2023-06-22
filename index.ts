@@ -6,7 +6,7 @@ import absoluteParentExport from '@/rules/absolute-parent-export';
 export default {
   meta: {
     name: 'eslint-plugin-typescript-paths',
-    version: '0.0.1',
+    version: '0.0.16',
   },
   configs: {
     recommended: {
