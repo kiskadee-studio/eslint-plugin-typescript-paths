@@ -9,7 +9,6 @@
     "LICENSE"
   ],
   "dependencies": {
-    "eslint-plugin-typescript-paths": "^0.0.14",
     "jsonc-parser": "^3.2.0"
   },
   "description": "ESLint rule enforcing supporting typescript paths",
