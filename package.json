@@ -2,8 +2,14 @@
   "name": "eslint-plugin-typescript-paths",
   "version": "0.0.14",
   "main": "dist/index.js",
-  "files": ["dist/**/*", "package.json", "README.md", "LICENSE"],
+  "files": [
+    "dist/**/*",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
+    "eslint-plugin-typescript-paths": "^0.0.14",
     "jsonc-parser": "^3.2.0"
   },
   "description": "ESLint rule enforcing supporting typescript paths",
