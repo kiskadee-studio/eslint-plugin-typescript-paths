@@ -34,7 +34,7 @@ If you want to customize the rules, define 'typescript-paths' plugin.
   };
 ```
 
-### Regras
+### Rules
 
 ## absolute-import
 
