@@ -24,15 +24,15 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       relativeExportOverAlias:
-        "e1 - Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead. {{log}}",
+        "Use relative export for exports within the same directory for consistency. Use '{{expectedPath}}' instead. {{log}}",
       aliasExportOverRelative:
-        "e2 - Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead. {{log}}",
+        "Alias exports can also be used for exports within the same directory. Use '{{expectedPath}}' instead. {{log}}",
       baseUrlExportOverRelative:
-        "e3 - BaseUrl exports must be used over relative exports. Use '{{expectedPath}}' instead. {{log}}",
+        "BaseUrl exports must be used over relative exports. Use '{{expectedPath}}' instead. {{log}}",
     },
     docs: {
       description:
-        'Controls whether the export can be relative or not to the current directory.',
+        'Controls whether the export can be absolute if the source is in the same directory or below.',
       recommended: false,
     },
     schema: [

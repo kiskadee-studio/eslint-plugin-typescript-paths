@@ -16,23 +16,21 @@ type Options = [
   }
 ];
 
-const debug = false;
-
 export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
       relativeImportOverAlias:
-        "i1 - Use relative import for imports within the same directory for consistency. Use '{{expectedPath}}' instead. {{log}}",
+        "Use relative import for imports within the same directory for consistency. Use '{{expectedPath}}' instead",
       aliasImportOverRelative:
-        "i2 - Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead. {{log}}",
+        "Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead",
       baseUrlImportOverRelative:
-        "i3 - BaseUrl imports must be used over relative imports. Use '{{expectedPath}}' instead. {{log}}",
+        "BaseUrl imports must be used over relative imports. Use '{{expectedPath}}' instead",
     },
     docs: {
       description:
-        'Controls whether the import can be relative or not to the current directory.',
+        'Controls whether the import can be absolute if the source is in the same directory or below.',
       recommended: false,
     },
     schema: [
@@ -78,23 +76,16 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
                 ? 'aliasImportOverRelative'
                 : 'baseUrlImportOverRelative';
 
-            const log = JSON.stringify({
-              pathUsed,
-              absolutePath,
-              baseUrl,
-              paths,
-            });
-
             context.report({
               node,
               messageId,
-              data: { expectedPath, log: debug ? log : '' },
+              data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
             });
           }
-        } else if (!enableAlias || debug) {
+        } else if (!enableAlias) {
           const expectedPath = checkAlias(
             baseUrl,
             directoryName,
@@ -102,19 +93,11 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             paths
           );
 
-          if (expectedPath || debug) {
-            const log = JSON.stringify({
-              pathUsed,
-              absolutePath,
-              directoryName,
-              baseUrl,
-              paths,
-            });
-
+          if (expectedPath) {
             context.report({
               node,
               messageId: 'relativeImportOverAlias',
-              data: { expectedPath, log: debug ? log : '' },
+              data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },

@@ -2,7 +2,7 @@ import { ESLintUtils } from '@typescript-eslint/utils';
 import { getTSConfigPaths } from '@/utils/get-tsconfig-paths';
 import { posix, dirname, join } from 'node:path';
 import { getExpectedPath } from '@/utils/get-expected-path';
-import { checkPathExistence } from 'utils/check-path-existence';
+import { checkPathExistence } from '@/utils/check-path-existence';
 import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds =
@@ -24,15 +24,15 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       aliasImportOverRelative:
-        "i4 - Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
       aliasImportOverBaseUrl:
-        "i5 - Alias imports must be used over baseUrl imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "Alias imports must be used over baseUrl imports. Use '{{expectedPath}}' instead. {{log}}.",
       baseUrlImportOverRelative:
-        "i6 - BaseUrl imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "BaseUrl imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
     },
     docs: {
       description:
-        'Encourages the use of absolute imports for parent directories.',
+        'Encourages the use of absolute imports from parent directories.',
       recommended: false,
     },
     schema: [
