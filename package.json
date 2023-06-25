@@ -19,12 +19,15 @@
     "url": "https://github.com/kiskadee-studio"
   },
   "categories": [
-    "typescript",
-    "paths",
-    "alias",
     "eslint",
+    "imports",
+    "absolute",
+    "no-relative",
+    "relative",
+    "alias",
     "eslint-plugin",
-    "absolute"
+    "typescript",
+    "paths"
   ],
   "repository": {
     "url": "https://github.com/kiskadee-studio/eslint-plugin-typescript-paths.git"
@@ -33,7 +36,9 @@
     "eslint",
     "imports",
     "absolute",
+    "no-relative",
     "relative",
+    "alias",
     "eslint-plugin",
     "typescript",
     "paths"
