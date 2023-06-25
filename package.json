@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-typescript-paths",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "dist/index.js",
   "files": [
     "dist/**/*",
@@ -22,12 +22,13 @@
     "eslint",
     "imports",
     "absolute",
-    "no-relative",
+    "no relative",
     "relative",
     "alias",
     "eslint-plugin",
     "typescript",
-    "paths"
+    "paths",
+    "baseurl"
   ],
   "repository": {
     "url": "https://github.com/kiskadee-studio/eslint-plugin-typescript-paths.git"
@@ -36,12 +37,13 @@
     "eslint",
     "imports",
     "absolute",
-    "no-relative",
+    "no relative",
     "relative",
     "alias",
     "eslint-plugin",
     "typescript",
-    "paths"
+    "paths",
+    "baseurl"
   ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
