@@ -166,35 +166,67 @@ Encourages the use of absolute imports from parent directories.
 
 - **preferPathOverBaseUrl**: `boolean`
 
+**Usage**:
+
 ```javascript
   // .eslintrc
   module.exports = {
     rules: {
       'typescript-paths/absolute-parent-import': 'warn'
-      // 'typescript-paths/absolute-parent-import': ['warn', { preferPathOverBaseUrl: true } ]
+      // short for: 'typescript-paths/absolute-parent-import': ['warn', { preferPathOverBaseUrl: true } ]
     },
   };
 ```
 
-## absolute-parent-export
+### preferPathOverBaseUrl: `true` (default)
 
-Encourages the use of absolute exports from parent directories.
+Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of importing modules using the `baseUrl` attribute.
 
-#### Options
+#### ❌ Fail
 
-- **preferPathOverBaseUrl**: `boolean`. Default: `true`. If `false`, it stops suggesting the use of aliases and starts accepting exports from the source baseUrl as well.
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{}]
+    }
+  }
+```
 
 ```javascript
-  // .eslintrc
-  module.exports = {
-    rules: {
-      'typescript-paths/absolute-parent-export': 'warn'
-      // 'typescript-paths/absolute-parent-export': ['warn', { preferPathOverBaseUrl: true } ]
-    },
-  };
+  // relative parent imports
+  import functionA from '../function-a'
+  import functionB from '../../service/function-b'
+  import functionC from '../../helper/util/path/function-c'
+
+  // baseUrl imports
+  import functionD from 'config/function-d'
+  import functionE from 'service/function-e'
+  import functionF from 'helper/util/path/function-f'
 ```
 
-### tsconfig.json example
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./"
+      "paths": [{
+        "@/*": "./*"
+      }]
+    }
+  }
+```
+
+```javascript
+  import functionA from '@/config/function-a'
+  import functionB from '@/service/function-b'
+  import functionC from '@/helper/util/path/function-c'
+```
+
+#### ✅ Pass
 
 ```json lines
   // tsconfig.json
@@ -202,10 +234,222 @@ Encourages the use of absolute exports from parent directories.
     "compilerOptions": {
       "baseUrl": "./src", // default is "./*"
       "paths": [{
-        "service/*": "./service/*",
-        "@helpers/*": "./helpers/*",
+        "util/*": "./helpers/utils/*",
+        "@service/*": "./service/*",
+        "@/*": "./*" // the most generic path should be the last
+      }]
+    }
+  }
+```
+
+```javascript
+  import { functionA } from '@/config'
+  import functionB from '@service/function-b'
+  import functionC from 'util/path/function-c'
+```
+
+### preferPathOverBaseUrl: `false`
+
+Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
+
+#### ❌ Fail
+
+```javascript
+  // relative parent imports
+  import functionA from '../function-a'
+  import functionB from '../../service/function-b'
+  import functionC from '../../helper/util/path/function-c'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{}]
+    }
+  }
+```
+
+```javascript
+  // baseUrl imports
+  import functionA from 'config/function-a'
+  import functionB from 'service/function-b'
+  import functionC from 'helper/util/path/function-c'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{
         "@/*": "./*"
       }]
     }
   }
+```
+
+```javascript
+  // baseUrl imports
+  import functionA from 'function-a'
+  import functionB from 'service/function-b'
+  import functionC from 'helper/util/path/function-c'
+
+  // paths imports
+  import functionD from '@/function-d'
+  import functionE from '@/service/function-e'
+  import functionF from '@/helper/util/path/function-f'
+```
+
+## 🔥 absolute-parent-export - rule
+
+Encourages the use of absolute exports from parent directories.
+
+**Options:**
+
+- **preferPathOverBaseUrl**: `boolean`
+
+**Usage**:
+
+```javascript
+  // .eslintrc
+  module.exports = {
+    rules: {
+      'typescript-paths/absolute-parent-export': 'warn'
+      // short for: 'typescript-paths/absolute-parent-export': ['warn', { preferPathOverBaseUrl: true } ]
+    },
+  };
+```
+
+### preferPathOverBaseUrl: `true` (default)
+
+Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of exporting modules using the `baseUrl` attribute.
+
+#### ❌ Fail
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{}]
+    }
+  }
+```
+
+```javascript
+  // relative parent exports
+  export functionA from '../function-a'
+  export functionB from '../../service/function-b'
+  export functionC from '../../helper/util/path/function-c'
+
+  // baseUrl exports
+  export functionD from 'config/function-d'
+  export functionE from 'service/function-e'
+  export functionF from 'helper/util/path/function-f'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./"
+      "paths": [{
+        "@/*": "./*"
+      }]
+    }
+  }
+```
+
+```javascript
+  export functionA from '@/config/function-a'
+  export functionB from '@/service/function-b'
+  export functionC from '@/helper/util/path/function-c'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{
+        "util/*": "./helpers/utils/*",
+        "@service/*": "./service/*",
+        "@/*": "./*" // the most generic path should be the last
+      }]
+    }
+  }
+```
+
+```javascript
+  export { functionA } from '@/config'
+  export functionB from '@service/function-b'
+  export functionC from 'util/path/function-c'
+```
+
+### preferPathOverBaseUrl: `false`
+
+Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
+
+#### ❌ Fail
+
+```javascript
+  // relative parent exports
+  export functionA from '../function-a'
+  export functionB from '../../service/function-b'
+  export functionC from '../../helper/util/path/function-c'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{}]
+    }
+  }
+```
+
+```javascript
+  // baseUrl exports
+  export functionA from 'config/function-a'
+  export functionB from 'service/function-b'
+  export functionC from 'helper/util/path/function-c'
+```
+
+#### ✅ Pass
+
+```json lines
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./src", // default is "./*"
+      "paths": [{
+        "@/*": "./*"
+      }]
+    }
+  }
+```
+
+```javascript
+  // baseUrl exports
+  export functionA from 'function-a'
+  export functionB from 'service/function-b'
+  export functionC from 'helper/util/path/function-c'
+
+  // paths exports
+  export functionD from '@/function-d'
+  export functionE from '@/service/function-e'
+  export functionF from '@/helper/util/path/function-f'
 ```
