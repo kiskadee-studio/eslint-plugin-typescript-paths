@@ -66,16 +66,18 @@ Encourages the use of aliases for imports even from the same directory or subdir
 
 #### ❌ Fail
 
-```javascript
+```typescript
   import functionA from './function-a'
-  import functionB from './service/function-b'
+  import functionB from './path-2/function-b'
+  import functionC from './path-1/path-3/function-c'
 ```
 
 #### ✅ Pass
 
-```javascript
-  import functionA from '@/path/current-dir/function-a'
-  import functionB from '@/path/current-dir/service/function-b'
+```typescript
+  import functionA from '@/path/CURRENT-DIR/function-a'
+  import functionB from '@/path/CURRENT-DIR/path-2/function-b'
+  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
 ```
 
 ### enableAlias: `false` (default)
@@ -85,15 +87,17 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 #### ❌ Fail
 
 ```javascript
-  import functionA from '@/function-a'
-  import functionB from 'service/function-b'
+  import functionA from '@/path/CURRENT-DIR/function-a'
+  import functionB from '@/path/CURRENT-DIR/path-2/function-b'
+  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
 ```
 
 #### ✅ Pass
 
 ```javascript
   import functionA from './function-a'
-  import functionB from './service/function-b'
+  import functionB from './path-2/function-b'
+  import functionC from './path-1/path-3/function-c'
 ```
 
 ## 🔥 absolute-export - rule
@@ -122,14 +126,16 @@ Encourages the use of aliases for exports even from the same directory or subdir
 
 ```javascript
   export functionA from './function-a'
-  export functionB from './service/function-b'
+  export functionB from './path-2/function-b'
+  export functionC from './path-1/path-3/function-c'
 ```
 
 #### ✅ Pass
 
 ```javascript
-  export functionA from '@/path/current-dir/function-a'
-  export functionB from '@/path/current-dir/service/function-b'
+  export functionA from '@/path/CURRENT-DIR/function-a'
+  export functionB from '@/path/CURRENT-DIR/path-2/function-b'
+  export functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
 ```
 
 ### enableAlias: `false` (default)
@@ -139,15 +145,17 @@ Discourages the use of aliases for exports from the same directory or subdirecto
 #### ❌ Fail
 
 ```javascript
-  export functionA from '@/function-a'
-  export functionB from 'service/function-b'
+  export functionA from '@/path/CURRENT-DIR/function-a'
+  export functionB from '@/path/CURRENT-DIR/path-2/function-b'
+  export functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
 ```
 
 #### ✅ Pass
 
 ```javascript
   export functionA from './function-a'
-  export functionB from './service/function-b'
+  export functionB from './path-2/function-b'
+  export functionC from './path-1/path-3/function-c'
 ```
 
 ## 🔥 absolute-parent-import - rule
@@ -193,7 +201,11 @@ Encourages the use of absolute exports from parent directories.
   {
     "compilerOptions": {
       "baseUrl": "./src", // default is "./*"
-      "paths": [{ "service/*": "./service/*", "@/*": "./*" }]
+      "paths": [{
+        "service/*": "./service/*",
+        "@helpers/*": "./helpers/*",
+        "@/*": "./*"
+      }]
     }
   }
 ```
