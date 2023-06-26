@@ -150,13 +150,13 @@ Discourages the use of aliases for exports from the same directory or subdirecto
   export functionB from './service/function-b'
 ```
 
-## absolute-parent-import
+## 🔥 absolute-parent-import - rule
 
 Encourages the use of absolute imports from parent directories.
 
-#### Options
+**Options:**
 
-- **preferPathOverBaseUrl**: `boolean`. Default: `true`. If `false`, it stops suggesting the use of aliases and starts accepting imports from the source baseUrl as well.
+- **preferPathOverBaseUrl**: `boolean`
 
 ```javascript
   // .eslintrc
