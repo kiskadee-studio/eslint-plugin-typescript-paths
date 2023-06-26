@@ -42,15 +42,13 @@ If you want to customize the rules, define `typescript-paths` plugin.
   };
 ```
 
-### 🔥 Rules
-
-## absolute-import
+## 🔥 absolute-import - rule
 
 Controls whether the import can be absolute if the source is in the same directory.
 
-#### Options
+### Options
 
-- **enableAlias**: `boolean`.
+- **enableAlias**: `boolean`
 
 ```javascript
   // .eslintrc
@@ -62,7 +60,7 @@ Controls whether the import can be absolute if the source is in the same directo
   };
 ```
 
-### enableAlias: true
+### enableAlias: `true`
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
@@ -80,7 +78,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionB from '@/path/current-dir/service/function-b'
 ```
 
-### enableAlias: false (default)
+### enableAlias: `false` (default)
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
@@ -98,13 +96,13 @@ Discourages the use of aliases for imports from the same directory or subdirecto
   import functionB from './service/function-b'
 ```
 
-## absolute-export
+## 🔥 absolute-export - rule
 
 Controls whether the export can be absolute if the source is in the same directory.
 
-#### Options
+### Options
 
-- **enableAlias**: `boolean`.
+- **enableAlias**: `boolean`
 
 ```javascript
   // .eslintrc
@@ -116,7 +114,7 @@ Controls whether the export can be absolute if the source is in the same directo
   };
 ```
 
-### enableAlias: true
+### enableAlias: `true`
 
 Encourages the use of aliases for exports even from the same directory or subdirectories.
 
@@ -134,7 +132,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
   export functionB from '@/path/current-dir/service/function-b'
 ```
 
-### enableAlias: false (default)
+### enableAlias: `false` (default)
 
 Discourages the use of aliases for exports from the same directory or subdirectories.
 
