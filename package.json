@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-typescript-paths",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "dist/index.js",
   "files": [
     "dist/**/*",
@@ -11,7 +11,7 @@
   "dependencies": {
     "jsonc-parser": "^3.2.0"
   },
-  "description": "ESLint rule enforcing supporting typescript paths",
+  "description": "ESLint rule that enables the automatic fixing of absolute paths based on the paths or baseUrl from tsconfig.json",
   "license": "AGPL-3.0-or-later",
   "author": {
     "email": "rodrigojcmello@gmail.com",
