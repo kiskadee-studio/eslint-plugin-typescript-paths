@@ -46,7 +46,7 @@ If you want to customize the rules, define `typescript-paths` plugin.
 
 Controls whether the import can be absolute if the source is in the same directory.
 
-### Options
+**Options:**
 
 - **enableAlias**: `boolean`
 
@@ -100,7 +100,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 
 Controls whether the export can be absolute if the source is in the same directory.
 
-### Options
+**Options**
 
 - **enableAlias**: `boolean`
 
