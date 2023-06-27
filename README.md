@@ -67,17 +67,17 @@ Encourages the use of aliases for imports even from the same directory or subdir
 #### ❌ Fail
 
 ```typescript
-  import functionA from './function-a'
-  import functionB from './path-2/function-b'
-  import functionC from './path-1/path-3/function-c'
+  import functionA from './function-a';
+  import functionB from './path-2/function-b';
+  import functionC from './path-1/path-3/function-c';
 ```
 
 #### ✅ Pass
 
 ```typescript
-  import functionA from '@/path/CURRENT-DIR/function-a'
-  import functionB from '@/path/CURRENT-DIR/path-2/function-b'
-  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
+  import functionA from '@/path/CURRENT-DIR/function-a';
+  import functionB from '@/path/CURRENT-DIR/path-2/function-b';
+  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
 ### enableAlias: `false` (default)
@@ -87,17 +87,17 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 #### ❌ Fail
 
 ```javascript
-  import functionA from '@/path/CURRENT-DIR/function-a'
-  import functionB from '@/path/CURRENT-DIR/path-2/function-b'
-  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
+  import functionA from '@/path/CURRENT-DIR/function-a';
+  import functionB from '@/path/CURRENT-DIR/path-2/function-b';
+  import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
 #### ✅ Pass
 
 ```javascript
-  import functionA from './function-a'
-  import functionB from './path-2/function-b'
-  import functionC from './path-1/path-3/function-c'
+  import functionA from './function-a';
+  import functionB from './path-2/function-b';
+  import functionC from './path-1/path-3/function-c';
 ```
 
 ## 🔥 absolute-export - rule
@@ -125,17 +125,17 @@ Encourages the use of aliases for exports even from the same directory or subdir
 #### ❌ Fail
 
 ```javascript
-  export functionA from './function-a'
-  export functionB from './path-2/function-b'
-  export functionC from './path-1/path-3/function-c'
+  export functionA from './function-a';
+  export { functionB } from './path-2/function-b';
+  export * from './path-1/path-3/function-c';
 ```
 
 #### ✅ Pass
 
 ```javascript
-  export functionA from '@/path/CURRENT-DIR/function-a'
-  export functionB from '@/path/CURRENT-DIR/path-2/function-b'
-  export functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
+  export functionA from '@/path/CURRENT-DIR/function-a';
+  export { functionB } from '@/path/CURRENT-DIR/path-2/function-b';
+  export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
 ### enableAlias: `false` (default)
@@ -145,17 +145,17 @@ Discourages the use of aliases for exports from the same directory or subdirecto
 #### ❌ Fail
 
 ```javascript
-  export functionA from '@/path/CURRENT-DIR/function-a'
-  export functionB from '@/path/CURRENT-DIR/path-2/function-b'
-  export functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c'
+  export functionA from '@/path/CURRENT-DIR/function-a';
+  export { functionB } from '@/path/CURRENT-DIR/path-2/function-b';
+  export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
 #### ✅ Pass
 
 ```javascript
-  export functionA from './function-a'
-  export functionB from './path-2/function-b'
-  export functionC from './path-1/path-3/function-c'
+  export functionA from './function-a';
+  export { functionB } from './path-2/function-b';
+  export * from './path-1/path-3/function-c';
 ```
 
 ## 🔥 absolute-parent-import - rule
@@ -196,14 +196,14 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 ```javascript
   // relative parent imports
-  import functionA from '../function-a'
-  import functionB from '../../service/function-b'
-  import functionC from '../../helper/util/path/function-c'
+  import functionA from '../function-a';
+  import functionB from '../../service/function-b';
+  import functionC from '../../helper/util/path/function-c';
 
   // baseUrl imports
-  import functionD from 'config/function-d'
-  import functionE from 'service/function-e'
-  import functionF from 'helper/util/path/function-f'
+  import functionD from 'config/function-d';
+  import functionE from 'service/function-e';
+  import functionF from 'helper/util/path/function-f';
 ```
 
 #### ✅ Pass
@@ -221,9 +221,9 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 ```
 
 ```javascript
-  import functionA from '@/config/function-a'
-  import functionB from '@/service/function-b'
-  import functionC from '@/helper/util/path/function-c'
+  import functionA from '@/config/function-a';
+  import functionB from '@/service/function-b';
+  import functionC from '@/helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -243,9 +243,9 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 ```
 
 ```javascript
-  import { functionA } from '@/config'
-  import functionB from '@service/function-b'
-  import functionC from 'util/path/function-c'
+  import { functionA } from '@/config';
+  import functionB from '@service/function-b';
+  import functionC from 'util/path/function-c';
 ```
 
 ### preferPathOverBaseUrl: `false`
@@ -256,9 +256,9 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // relative parent imports
-  import functionA from '../function-a'
-  import functionB from '../../service/function-b'
-  import functionC from '../../helper/util/path/function-c'
+  import functionA from '../function-a';
+  import functionB from '../../service/function-b';
+  import functionC from '../../helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -275,9 +275,9 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // baseUrl imports
-  import functionA from 'config/function-a'
-  import functionB from 'service/function-b'
-  import functionC from 'helper/util/path/function-c'
+  import functionA from 'config/function-a';
+  import functionB from 'service/function-b';
+  import functionC from 'helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -296,14 +296,14 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // baseUrl imports
-  import functionA from 'function-a'
-  import functionB from 'service/function-b'
-  import functionC from 'helper/util/path/function-c'
+  import functionA from 'function-a';
+  import functionB from 'service/function-b';
+  import functionC from 'helper/util/path/function-c';
 
   // paths imports
-  import functionD from '@/function-d'
-  import functionE from '@/service/function-e'
-  import functionF from '@/helper/util/path/function-f'
+  import functionD from '@/function-d';
+  import functionE from '@/service/function-e';
+  import functionF from '@/helper/util/path/function-f';
 ```
 
 ## 🔥 absolute-parent-export - rule
@@ -344,14 +344,14 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 ```javascript
   // relative parent exports
-  export functionA from '../function-a'
-  export functionB from '../../service/function-b'
-  export functionC from '../../helper/util/path/function-c'
+  export functionA from '../function-a';
+  export { functionB } from '../../service/function-b';
+  export * from '../../helper/util/path/function-c';
 
   // baseUrl exports
-  export functionD from 'config/function-d'
-  export functionE from 'service/function-e'
-  export functionF from 'helper/util/path/function-f'
+  export functionD from 'config/function-d';
+  export { functionE } from 'service/function-e';
+  export * from 'helper/util/path/function-f';
 ```
 
 #### ✅ Pass
@@ -369,9 +369,9 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 ```
 
 ```javascript
-  export functionA from '@/config/function-a'
-  export functionB from '@/service/function-b'
-  export functionC from '@/helper/util/path/function-c'
+  export functionA from '@/config/function-a';
+  export { functionB } from '@/service/function-b';
+  export * from '@/helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -391,9 +391,9 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 ```
 
 ```javascript
-  export { functionA } from '@/config'
-  export functionB from '@service/function-b'
-  export functionC from 'util/path/function-c'
+  export functionA from '@/config';
+  export { functionB } from '@service/function-b';
+  export * from 'util/path/function-c';
 ```
 
 ### preferPathOverBaseUrl: `false`
@@ -404,9 +404,9 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // relative parent exports
-  export functionA from '../function-a'
-  export functionB from '../../service/function-b'
-  export functionC from '../../helper/util/path/function-c'
+  export functionA from '../function-a';
+  export { functionB } from '../../service/function-b';
+  export * from '../../helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -423,9 +423,9 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // baseUrl exports
-  export functionA from 'config/function-a'
-  export functionB from 'service/function-b'
-  export functionC from 'helper/util/path/function-c'
+  export functionA from 'config/function-a';
+  export { functionB } from 'service/function-b';
+  export * from 'helper/util/path/function-c';
 ```
 
 #### ✅ Pass
@@ -444,12 +444,12 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ```javascript
   // baseUrl exports
-  export functionA from 'function-a'
-  export functionB from 'service/function-b'
-  export functionC from 'helper/util/path/function-c'
+  export functionA from 'function-a';
+  export { functionB } from 'service/function-b';
+  export * from 'helper/util/path/function-c';
 
   // paths exports
-  export functionD from '@/function-d'
-  export functionE from '@/service/function-e'
-  export functionF from '@/helper/util/path/function-f'
+  export functionD from '@/function-d';
+  export { functionE } from '@/service/function-e';
+  export * from '@/helper/util/path/function-f';
 ```
