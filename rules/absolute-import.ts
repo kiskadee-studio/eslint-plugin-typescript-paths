@@ -22,16 +22,16 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     type: 'suggestion',
     messages: {
       relativeImportOverAlias:
-        "Use relative import for imports within the same directory for consistency. Use '{{expectedPath}}' instead",
+        "Use relative import for imports within the same directory for consistency. Use '{{expectedPath}}' instead.",
       aliasImportOverRelative:
-        "Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead",
+        "Alias imports can also be used for imports within the same directory. Use '{{expectedPath}}' instead.",
       baseUrlImportOverRelative:
-        "BaseUrl imports must be used over relative imports. Use '{{expectedPath}}' instead",
+        "BaseUrl imports must be used over relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
         'Controls whether the import can be absolute if the source is in the same directory or below.',
-      recommended: false,
+      recommended: 'warn',
     },
     schema: [
       {
