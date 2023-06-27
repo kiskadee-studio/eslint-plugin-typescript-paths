@@ -6,6 +6,24 @@
 
 After unsuccessful attempts to adopt aliases as a standard in my projects and trying to use other plugins with the same purpose but none of them working as expected, either due to bugs, lack of resources, or simply lack of support for Windows, I wanted to do something better. I wanted to create something that was tested, with more features that could not only help me in future projects but also help others who had faced the same problems as me.
 
+## 🗂️ Summary
+
+- [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
+- [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
+- [Usage](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-usage)
+- [Node Absolute Paths / Public Path](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#node-absolute-paths--public-path)
+- Frameworks
+  - [TypeScript (tsc)](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#typescript-tsc)
+  - [Vite / Vitest](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#vite--vitest)
+  - [Next.js](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#nextjs)
+  - Gatsby - soon
+  - Webpack - soon
+- Rules
+  - [absolute-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-import---rule)
+  - [absolute-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-export---rule)
+  - [absolute-parent-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-import---rule)
+  - [absolute-parent-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-export---rule)
+
 ## 🎒 Installation
 
 ```bash
