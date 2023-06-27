@@ -42,6 +42,100 @@ If you want to customize the rules, define `typescript-paths` plugin.
   };
 ```
 
+## Node Absolute Paths / Public Path
+
+#### ❌ Do not use Node Absolute Paths!
+
+```typescript
+  import logo from '/public/logo.svg';
+```
+
+Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
+
+Some frameworks have a `public` directory, to which you could make absolute imports. However, **_this is not encouraged_**. To maintain consistency with EcmaScript and TypeScript, **_it is highly recommended that you create a path (alias)_** to this public folder instead, as shown in the following example:
+
+```jsonc
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": [{
+        "public/*": "./public/*",
+        "@/*": "./src/*",
+      }]
+    }
+  }
+```
+
+## Frameworks
+
+Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
+
+### TypeScript (tsc)
+
+##### Installation
+
+```bash
+npm i -D tsc-alias
+```
+
+##### Usage
+
+```jsonc
+  // package.json
+  {
+    "scripts": {
+      "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    }
+  }
+```
+
+### Vite / Vitest
+
+##### Installation
+
+```bash
+npm i -D vite-tsconfig-paths
+```
+
+##### Usage
+
+```javascript
+  // vite.config.js
+  import { defineConfig } from 'vite';
+  import tsconfigPaths from 'vite-tsconfig-paths';
+  
+  export default defineConfig({
+    plugins: [tsconfigPaths()],
+  });
+```
+
+```javascript
+  // vitest.config.js
+  import { defineConfig } from 'vitest/config';
+  import tsconfigPaths from 'vite-tsconfig-paths';
+
+  export default defineConfig({
+    plugins: [tsconfigPaths()],
+    test: {
+      include: ['**/*.test.ts'],
+      globals: true,
+    },
+  });
+```
+
+### Next.js
+
+Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
+
+### Gatsby
+
+soon
+
+### Webpack
+
+soon
+
 ## 🔥 absolute-import - rule
 
 Controls whether the import can be absolute if the source is in the same directory.
@@ -184,7 +278,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ❌ Fail
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -208,7 +302,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -228,7 +322,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -263,7 +357,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -282,7 +376,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -332,7 +426,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ❌ Fail
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -356,7 +450,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -376,7 +470,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -411,7 +505,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
@@ -430,7 +524,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 #### ✅ Pass
 
-```json lines
+```jsonc
   // tsconfig.json
   {
     "compilerOptions": {
