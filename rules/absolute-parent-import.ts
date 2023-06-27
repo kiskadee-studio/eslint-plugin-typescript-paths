@@ -16,24 +16,22 @@ type Options = [
   }
 ];
 
-const debug = false;
-
 export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   meta: {
     fixable: 'code',
     type: 'suggestion',
     messages: {
       aliasImportOverRelative:
-        "Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead.",
       aliasImportOverBaseUrl:
-        "Alias imports must be used over baseUrl imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "Alias imports must be used over baseUrl imports. Use '{{expectedPath}}' instead.",
       baseUrlImportOverRelative:
-        "BaseUrl imports must be used over parent relative imports. Use '{{expectedPath}}' instead. {{log}}.",
+        "BaseUrl imports must be used over parent relative imports. Use '{{expectedPath}}' instead.",
     },
     docs: {
       description:
         'Encourages the use of absolute imports from parent directories.',
-      recommended: false,
+      recommended: 'warn',
     },
     schema: [
       {
@@ -72,22 +70,16 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         if (pathUsed.startsWith('../')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
-          if ((expectedPath && pathUsed !== expectedPath) || debug) {
+          if (expectedPath && pathUsed !== expectedPath) {
             const messageId =
               Object.keys(paths).length > 0
                 ? 'aliasImportOverRelative'
                 : 'baseUrlImportOverRelative';
 
-            const log = JSON.stringify({
-              absolutePath,
-              baseUrl,
-              paths,
-            });
-
             context.report({
               node,
               messageId,
-              data: { expectedPath, log: debug ? log : '' },
+              data: { expectedPath },
               fix(fixer) {
                 return fixer.replaceText(node.source, `'${expectedPath}'`);
               },
@@ -96,24 +88,18 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         } else if (!pathUsed.startsWith('./') && preferPathOverBaseUrl) {
           const relativeToBaseUrl = posix.join(baseUrl, pathUsed);
 
-          if (checkPathExistence(relativeToBaseUrl) || debug) {
+          if (checkPathExistence(relativeToBaseUrl)) {
             const expectedPath = getExpectedPath(
               relativeToBaseUrl,
               baseUrl,
               paths
             );
 
-            const log = JSON.stringify({
-              relativeToBaseUrl,
-              baseUrl,
-              paths,
-            });
-
-            if ((expectedPath && pathUsed !== expectedPath) || debug) {
+            if (expectedPath && pathUsed !== expectedPath) {
               context.report({
                 node,
                 messageId: 'aliasImportOverBaseUrl',
-                data: { expectedPath, log: debug ? log : '' },
+                data: { expectedPath },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },
