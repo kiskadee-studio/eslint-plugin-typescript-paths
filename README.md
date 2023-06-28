@@ -6,11 +6,7 @@
   <img alt="GitHub Release Date - Published_At" src="https://img.shields.io/github/release-date/kiskadee-studio/eslint-plugin-typescript-paths">
 </p>
 
-<h2 id="description">📖 Description2</h2>
-
-dfadsfa
-
-## Heading with Custom ID (Extended Markdown Syntax) [custom-id]
+## 📖 Description
 
 **ESLint Rules** that enables the *automatic fixing* of relative paths to absolute paths based on the [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
@@ -48,7 +44,7 @@ It is recommended that you have already set up [eslint-plugin-import](https://gi
 
 Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee ESLint Setup](https://github.com/kiskadee-studio/eslint-config-kiskadee) that already includes all the prerequisite configuration and additionally supports this plugin.
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 ---
 
 ## 🪁 Usage
@@ -206,7 +202,7 @@ soon
 
 soon
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 ---
 
 ## 🔥 absolute-import - rule
@@ -267,7 +263,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
   import functionC from './path-1/path-3/function-c';
 ```
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 ---
 
 ## 🔥 absolute-export - rule
@@ -328,7 +324,7 @@ Discourages the use of aliases for exports from the same directory or subdirecto
   export * from './path-1/path-3/function-c';
 ```
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 ---
 
 ## 🔥 absolute-parent-import - rule
@@ -479,7 +475,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionF from '@/helper/util/path/function-f';
 ```
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 ---
 
 ## 🔥 absolute-parent-export - rule
@@ -630,4 +626,4 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export * from '@/helper/util/path/function-f';
 ```
 
-<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+<div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
