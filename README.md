@@ -28,17 +28,24 @@
   - [absolute-parent-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-import---rule)
   - [absolute-parent-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-export---rule)
 
-## 🎒 Installation
+---
+
+## 🎒 Motivation {#motivation}
 
 ```bash
 npm i -D eslint-plugin-typescript-paths
 ```
 
-## 🧩 Requirements
+---
+
+## 🧩 Requirements {#requirements}
 
 It is recommended that you have already set up [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript), [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) in your project.
 
 Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee ESLint Setup](https://github.com/kiskadee-studio/eslint-config-kiskadee) that already includes all the prerequisite configuration and additionally supports this plugin.
+
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+---
 
 ## 🪁 Usage
 
@@ -85,6 +92,8 @@ Your project requires a tsconfig.json. Despite the plugin's capability to functi
     }
   }
 ```
+
+> Keep in mind that the `./` origin used in `paths` is relative to the `baseUrl`. Using the above example as reference, it would be possible to set baseUrl as `./src`, and paths as `"app/*": ["./app/*"]`.
 
 ##### Node Absolute Paths
 
@@ -193,6 +202,9 @@ soon
 
 soon
 
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+---
+
 ## 🔥 absolute-import - rule
 
 Controls whether the import can be absolute if the source is in the same directory.
@@ -251,6 +263,9 @@ Discourages the use of aliases for imports from the same directory or subdirecto
   import functionC from './path-1/path-3/function-c';
 ```
 
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+---
+
 ## 🔥 absolute-export - rule
 
 Controls whether the export can be absolute if the source is in the same directory.
@@ -308,6 +323,9 @@ Discourages the use of aliases for exports from the same directory or subdirecto
   export { functionB } from './path-2/function-b';
   export * from './path-1/path-3/function-c';
 ```
+
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+---
 
 ## 🔥 absolute-parent-import - rule
 
@@ -457,6 +475,9 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionF from '@/helper/util/path/function-f';
 ```
 
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
+---
+
 ## 🔥 absolute-parent-export - rule
 
 Encourages the use of absolute exports from parent directories.
@@ -604,3 +625,5 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export { functionE } from '@/service/function-e';
   export * from '@/helper/util/path/function-f';
 ```
+
+<div align="right">[ <a href="#description">↑ Back to top ↑</a> ]</div>
