@@ -29,7 +29,7 @@
 
 ---
 
-## 🎒 Motivation
+## 🎒 Installation
 
 ```bash
 npm i -D eslint-plugin-typescript-paths
