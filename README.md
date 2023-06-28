@@ -15,7 +15,6 @@
 - [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
 - [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
 - [Usage](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-usage)
-- [Node Absolute Paths / Public Path](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#node-absolute-paths--public-path)
 - Frameworks
   - [TypeScript (tsc)](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#typescript-tsc)
   - [Vite / Vitest](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#vite--vitest)
@@ -30,7 +29,7 @@
 
 ---
 
-## 🎒 Motivation {#motivation}
+## 🎒 Motivation
 
 ```bash
 npm i -D eslint-plugin-typescript-paths
@@ -38,7 +37,7 @@ npm i -D eslint-plugin-typescript-paths
 
 ---
 
-## 🧩 Requirements {#requirements}
+## 🧩 Requirements
 
 It is recommended that you have already set up [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript), [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) in your project.
 
