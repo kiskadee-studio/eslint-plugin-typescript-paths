@@ -45,6 +45,7 @@ It is recommended that you have already set up [eslint-plugin-import](https://gi
 Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee ESLint Setup](https://github.com/kiskadee-studio/eslint-config-kiskadee) that already includes all the prerequisite configuration and additionally supports this plugin.
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
+
 ---
 
 ## 🪁 Usage
@@ -203,6 +204,7 @@ soon
 soon
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
+
 ---
 
 ## 🔥 absolute-import - rule
@@ -264,6 +266,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 ```
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
+
 ---
 
 ## 🔥 absolute-export - rule
@@ -325,7 +328,6 @@ Discourages the use of aliases for exports from the same directory or subdirecto
 ```
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
----
 
 ## 🔥 absolute-parent-import - rule
 
@@ -476,7 +478,12 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 ```
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
+
+
+
 ---
+
+
 
 ## 🔥 absolute-parent-export - rule
 
