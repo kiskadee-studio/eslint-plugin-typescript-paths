@@ -60,17 +60,42 @@ If you want to customize the rules, define `typescript-paths` plugin.
   };
 ```
 
-## Node Absolute Paths / Public Path
+##### TSConfig.json
 
-#### ❌ Do not use Node Absolute Paths!
+Your project requires a tsconfig.json. Despite the plugin's capability to function without specified paths or a baseUrl in the tsconfig.json, we utilize the default baseUrl, "./". This allows us to provide suggestions for absolute paths, or not, as needed. However, without a tsconfig.json file, the plugin simply won't operate.
 
-```typescript
-  import logo from '/public/logo.svg';
+```jsonc
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": [{
+        "app/*": ["./src/app/*"],
+        "config/*": ["./src/app/_config/*"],
+        "environment/*": ["./src/environments/*"],
+        "shared/*": ["./src/app/_shared/*"],
+        "helpers/*": ["./src/helpers/*"],
+        "tests/*": ["./src/tests/*"],
+        "@/*": ["./src/*"],
+      }]
+    }
+  }
 ```
+
+##### Node Absolute Paths
 
 Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
 
+###### ❌ Avoid using this
+
+```typescript
+  import logo from '/img/logo.svg';
+  import Helvetica from '/fonts/Helvetica.woff';
+```
+
 Some frameworks have a `public` directory, to which you could make absolute imports. However, **_this is not encouraged_**. To maintain consistency with EcmaScript and TypeScript, **_it is highly recommended that you create a path (alias)_** to this public folder instead, as shown in the following example:
+
+###### ✅ Suggested usage
 
 ```jsonc
   // tsconfig.json
@@ -84,6 +109,16 @@ Some frameworks have a `public` directory, to which you could make absolute impo
     }
   }
 ```
+
+```typescript
+  import logo from 'public/img/logo.svg';
+  import Helvetica from 'public/fonts/Helvetica.woff';
+  // or
+  import logo from '@/img/logo.svg';
+  import Helvetica from '@/fonts/Helvetica.woff';
+```
+
+> The example above is just a suggestion in case you want to keep the 'public' directory, nothing prevents you from using it inside 'src' or changing its name. Don't get attached to our alias names in the examples, they are not recommendations, just examples. Use the aliases with which you feel most comfortable
 
 ## Frameworks
 
