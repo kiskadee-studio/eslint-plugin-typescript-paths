@@ -1,10 +1,14 @@
+<p style="text-align: center">
+  <img alt="npm" src="https://img.shields.io/npm/dw/eslint-plugin-typescript-paths">
+  <img alt="GitHub" src="https://img.shields.io/github/license/kiskadee-studio/eslint-plugin-typescript-paths">
+  <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/eslint-plugin-typescript-paths">
+  <img alt="npm" src="https://img.shields.io/npm/v/eslint-plugin-typescript-paths">
+  <img alt="GitHub Release Date - Published_At" src="https://img.shields.io/github/release-date/kiskadee-studio/eslint-plugin-typescript-paths">
+</p>
+
 ## 📖 Description
 
 **ESLint Rules** that enables the *automatic fixing* of relative paths to absolute paths based on the [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-
-## 💡 Motivation
-
-After unsuccessful attempts to adopt aliases as a standard in my projects and trying to use other plugins with the same purpose but none of them working as expected, either due to bugs, lack of resources, or simply lack of support for Windows, I wanted to do something better. I wanted to create something that was tested, with more features that could not only help me in future projects but also help others who had faced the same problems as me.
 
 ## 🗂️ Summary
 
