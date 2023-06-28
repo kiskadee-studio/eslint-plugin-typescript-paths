@@ -211,7 +211,7 @@ Controls whether the import can be absolute if the source is in the same directo
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```typescript
   import functionA from './function-a';
@@ -219,7 +219,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from './path-1/path-3/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```typescript
   import functionA from '@/path/CURRENT-DIR/function-a';
@@ -231,7 +231,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```javascript
   import functionA from '@/path/CURRENT-DIR/function-a';
@@ -239,7 +239,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```javascript
   import functionA from './function-a';
@@ -269,7 +269,7 @@ Controls whether the export can be absolute if the source is in the same directo
 
 Encourages the use of aliases for exports even from the same directory or subdirectories.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```javascript
   export functionA from './function-a';
@@ -277,7 +277,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
   export * from './path-1/path-3/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```javascript
   export functionA from '@/path/CURRENT-DIR/function-a';
@@ -289,7 +289,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
 
 Discourages the use of aliases for exports from the same directory or subdirectories.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```javascript
   export functionA from '@/path/CURRENT-DIR/function-a';
@@ -297,7 +297,7 @@ Discourages the use of aliases for exports from the same directory or subdirecto
   export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```javascript
   export functionA from './function-a';
@@ -329,7 +329,7 @@ Encourages the use of absolute imports from parent directories.
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of importing modules using the `baseUrl` attribute.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```jsonc
   // tsconfig.json
@@ -353,7 +353,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionF from 'helper/util/path/function-f';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -373,7 +373,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionC from '@/helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -399,7 +399,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```javascript
   // relative parent imports
@@ -408,7 +408,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionC from '../../helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -427,7 +427,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionC from 'helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -477,7 +477,7 @@ Encourages the use of absolute exports from parent directories.
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of exporting modules using the `baseUrl` attribute.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```jsonc
   // tsconfig.json
@@ -501,7 +501,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from 'helper/util/path/function-f';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -521,7 +521,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from '@/helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -547,7 +547,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
-#### ❌ Fail
+###### ❌ Fail
 
 ```javascript
   // relative parent exports
@@ -556,7 +556,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export * from '../../helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -575,7 +575,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export * from 'helper/util/path/function-c';
 ```
 
-#### ✅ Pass
+###### ✅ Pass
 
 ```jsonc
   // tsconfig.json
