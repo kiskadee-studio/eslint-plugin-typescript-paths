@@ -1,4 +1,4 @@
-<p style="text-align: center">
+<p align="center">
   <img alt="npm" src="https://img.shields.io/npm/dw/eslint-plugin-typescript-paths">
   <img alt="GitHub" src="https://img.shields.io/github/license/kiskadee-studio/eslint-plugin-typescript-paths">
   <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/eslint-plugin-typescript-paths">
