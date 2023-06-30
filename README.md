@@ -1,3 +1,41 @@
+<style>
+  .title > * {
+    box-sizing: content-box;
+  }
+  .title .icon {
+    padding: 8px;
+    background-color: #000000;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-flex;
+  }
+  .title img {
+    width: 24px;
+    height: 24px;
+    font-size: 0;
+    padding: 0;
+  }
+  .title .heading {
+    margin-top: -4px;
+  }
+
+  .markdown-body h2 {
+    border-bottom: 1px solid hsl(210 18% 95% / 1);
+    display: flex;
+    align-items: center;
+  }
+
+  .markdown-body img {
+    background: none;
+  }
+
+  .markdown-body hr {
+    margin-top: 36px;
+    margin-bottom: 48px;
+    background-color: #bbc6d585;
+  }
+</style>
+
 <p align="center">
   <img alt="npm" src="https://img.shields.io/npm/dw/eslint-plugin-typescript-paths">
   <img alt="GitHub" src="https://img.shields.io/github/license/kiskadee-studio/eslint-plugin-typescript-paths">
@@ -28,8 +66,14 @@
   - [absolute-parent-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-export---rule)
 
 ---
-
-## 🎒 Installation
+<span class="title">
+  <h2 id="installation">
+    <span class="icon">
+      <img alt="icon folder" src="./assets/terminal-svgrepo-com.svg">
+    </span>
+    <span class="heading">Installation</span>
+  </h2>
+</span>
 
 ```bash
 npm i -D eslint-plugin-typescript-paths
@@ -37,7 +81,9 @@ npm i -D eslint-plugin-typescript-paths
 
 ---
 
-## 🧩 Requirements
+<span class="title">
+  <h2 id="requirements"><span class="icon"><img alt="icon folder" src="./assets/puzzle-svgrepo-com.svg"></span> <span class="heading">Requirements</span></h2>
+</span>
 
 It is recommended that you have already set up [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript), [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) in your project.
 
@@ -224,7 +270,7 @@ Controls whether the import can be absolute if the source is in the same directo
   };
 ```
 
-### - enableAlias: `true`
+### ◼️ enableAlias: `true`
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
@@ -244,7 +290,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-### - enableAlias: `false` (default)
+### ◼️ enableAlias: `false` (default)
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
