@@ -119,7 +119,7 @@ Your project requires a tsconfig.json. Despite the plugin's capability to functi
 
 Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
 
-##### ❌ Avoid using this
+##### ❌ Not Recommended
 
 ```typescript
   import logo from '/img/logo.svg';
@@ -128,7 +128,7 @@ Node.js interprets absolute imports based on **_the location of the file being e
 
 Some frameworks have a `public` directory, to which you could make absolute imports. However, **_this is not encouraged_**. To maintain consistency with EcmaScript and TypeScript, **_it is highly recommended that you create a path (alias)_** to this public folder instead, as shown in the following example:
 
-##### ✅ Suggested usage
+##### ✅ Suggested Usage
 
 ```jsonc
   // tsconfig.json
