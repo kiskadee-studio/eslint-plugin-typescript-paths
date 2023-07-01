@@ -141,7 +141,7 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
 
-### 🔵 TypeScript (tsc)
+#### 🔵 TypeScript (tsc)
 
 ##### Installation
 
@@ -160,7 +160,7 @@ npm i -D tsc-alias
   }
 ```
 
-### 🔵 Vite / Vitest
+#### 🔵 Vite / Vitest
 
 ##### Installation
 
@@ -190,15 +190,15 @@ npm i -D vite-tsconfig-paths
   });
 ```
 
-### 🔵 Next.js
+#### 🔵 Next.js
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
-### 🔵 Gatsby
+#### 🔵 Gatsby
 
 soon
 
-### 🔵 Webpack
+#### 🔵 Webpack
 
 soon
 
