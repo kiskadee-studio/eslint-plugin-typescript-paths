@@ -17,7 +17,11 @@
 
 - [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
 - [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
-- [Usage](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-usage)
+- Usage
+  - [Recommended configuration](#typescript-tsc)
+  - [Configure the Rules](#vite--vitest)
+  - [TSConfig.json](#nextjs)
+  - [Node Absolute Paths](#nextjs)
 - Frameworks
   - [TypeScript (tsc)](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#typescript-tsc)
   - [Vite / Vitest](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#vite--vitest)
@@ -55,6 +59,9 @@ Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee E
 <br />
 
 ### 🪁 Usage
+<br />
+
+##### 🔵 Recommended Configuration
 
 To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats))  file, extend `plugin:typescript-paths/recommended`.
 
@@ -67,7 +74,9 @@ To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint
   };
 ```
 
-If you want to customize the rules, define `typescript-paths` plugin.
+##### 🔵 Configure the Rules
+
+Define `typescript-paths` plugin in the `.eslintrc` ([or equivalent](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats))  file.
 
 ```javascript
   module.exports = {
