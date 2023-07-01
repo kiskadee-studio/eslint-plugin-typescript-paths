@@ -161,7 +161,7 @@ Despite its configuration option in tsconfig.json, it's ironic that TypeScript d
 
 <br />
 
-#### 🔵 TypeScript (tsc)
+#### ➤ TypeScript (tsc)
 
 ##### Installation
 
@@ -181,7 +181,7 @@ npm i -D tsc-alias
 ```
 <br />
 
-#### 🔵 Vite / Vitest
+#### ➤ Vite / Vitest
 
 ##### Installation
 
@@ -212,19 +212,19 @@ npm i -D vite-tsconfig-paths
 ```
 <br />
 
-#### 🔵 Nextjs
+#### ➤ Nextjs
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
 <br />
 
-#### 🔵 Gatsby
+#### ➤ Gatsby
 
 soon
 
 <br />
 
-#### 🔵 Webpack
+#### ➤ Webpack
 
 soon
 
