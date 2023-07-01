@@ -212,7 +212,7 @@ npm i -D vite-tsconfig-paths
 ```
 <br />
 
-#### 🔵 Next.js
+#### 🔵 Nextjs
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
