@@ -18,10 +18,10 @@
 - [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
 - [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
 - Usage
-  - [Recommended configuration](#typescript-tsc)
-  - [Configure the Rules](#vite--vitest)
-  - [TSConfig.json](#nextjs)
-  - [Node Absolute Paths](#nextjs)
+  - [Recommended configuration](#-recommended-configuration)
+  - [Configure the Rules](#-configure-the-rules)
+  - [TSConfig.json](#-tsconfigjson)
+  - [Node Absolute Paths](#-node-absolute-paths)
 - Frameworks
   - [TypeScript (tsc)](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#typescript-tsc)
   - [Vite / Vitest](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#vite--vitest)
@@ -155,7 +155,7 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 <br />
 
-### Frameworks
+### 🛠️ Frameworks
 
 Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
 
