@@ -73,6 +73,7 @@ To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint
     },
   };
 ```
+<br />
 
 ##### 🔵 Configure the Rules
 
