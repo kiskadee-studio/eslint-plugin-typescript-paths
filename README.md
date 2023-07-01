@@ -244,7 +244,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-#### enableAlias: `false` (default)
+#### 🔵 enableAlias: `false` (default)
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
