@@ -218,13 +218,13 @@ Next.js has [in-built support](https://nextjs.org/docs/app/building-your-applica
 
 <br />
 
-#### 🔵 Gatsby
+#### Gatsby
 
 soon
 
 <br />
 
-#### 🔵 Webpack
+#### Webpack
 
 soon
 
