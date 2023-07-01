@@ -75,7 +75,7 @@ If you want to customize the rules, define `typescript-paths` plugin.
   };
 ```
 
-##### ⚫ TSConfig.json
+##### 🔵 TSConfig.json
 
 Your project requires a tsconfig.json. Despite the plugin's capability to function without specified paths or a baseUrl in the tsconfig.json, we utilize the default baseUrl, "./". This allows us to provide suggestions for absolute paths, or not, as needed. However, without a tsconfig.json file, the plugin simply won't operate.
 
@@ -99,7 +99,7 @@ Your project requires a tsconfig.json. Despite the plugin's capability to functi
 
 > Keep in mind that the `./` origin used in `paths` is relative to the `baseUrl`. Using the above example as reference, it would be possible to set baseUrl as `./src`, and paths as `"app/*": ["./app/*"]`.
 
-##### ⚫ Node Absolute Paths
+##### 🔵 Node Absolute Paths
 
 Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
 
@@ -141,7 +141,7 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
 
-### ⚫ TypeScript (tsc)
+### 🔵 TypeScript (tsc)
 
 ##### Installation
 
@@ -160,7 +160,7 @@ npm i -D tsc-alias
   }
 ```
 
-### ⚫ Vite / Vitest
+### 🔵 Vite / Vitest
 
 ##### Installation
 
@@ -190,15 +190,15 @@ npm i -D vite-tsconfig-paths
   });
 ```
 
-### ⚫ Next.js
+### 🔵 Next.js
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
-### ⚫ Gatsby
+### 🔵 Gatsby
 
 soon
 
-### ⚫ Webpack
+### 🔵 Webpack
 
 soon
 
@@ -224,7 +224,7 @@ Controls whether the import can be absolute if the source is in the same directo
   };
 ```
 
-#### ⚫ enableAlias: `true`
+#### 🔵 enableAlias: `true`
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
@@ -244,7 +244,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-#### ⚫ enableAlias: `false` (default)
+#### 🔵 enableAlias: `false` (default)
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
@@ -286,7 +286,7 @@ Controls whether the export can be absolute if the source is in the same directo
   };
 ```
 
-#### ⚫ enableAlias: `true`
+#### 🔵 enableAlias: `true`
 
 Encourages the use of aliases for exports even from the same directory or subdirectories.
 
@@ -306,7 +306,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
   export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-#### ⚫ enableAlias: `false` (default)
+#### 🔵 enableAlias: `false` (default)
 
 Discourages the use of aliases for exports from the same directory or subdirectories.
 
@@ -348,7 +348,7 @@ Encourages the use of absolute imports from parent directories.
   };
 ```
 
-#### ⚫ preferPathOverBaseUrl: `true` (default)
+#### 🔵 preferPathOverBaseUrl: `true` (default)
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of importing modules using the `baseUrl` attribute.
 
@@ -418,7 +418,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionC from 'util/path/function-c';
 ```
 
-#### ⚫ preferPathOverBaseUrl: `false`
+#### 🔵 preferPathOverBaseUrl: `false`
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
@@ -500,7 +500,7 @@ Encourages the use of absolute exports from parent directories.
   };
 ```
 
-#### ⚫ preferPathOverBaseUrl: `true` (default)
+#### 🔵 preferPathOverBaseUrl: `true` (default)
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of exporting modules using the `baseUrl` attribute.
 
@@ -570,7 +570,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from 'util/path/function-c';
 ```
 
-#### ⚫ preferPathOverBaseUrl: `false`
+#### 🔵 preferPathOverBaseUrl: `false`
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
