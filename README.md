@@ -23,9 +23,9 @@
   - [TSConfig.json](#-tsconfigjson)
   - [Node Absolute Paths](#-node-absolute-paths)
 - Frameworks
-  - [TypeScript (tsc)](#typescript-tsc)
-  - [Vite / Vitest](#vite--vitest)
-  - [Next.js](#nextjs)
+  - [TypeScript (tsc)](#-typescript-tsc)
+  - [Vite / Vitest](#-vite--vitest)
+  - [Next.js](#-nextjs)
   - Gatsby - soon
   - Webpack - soon
 - Rules
@@ -212,7 +212,7 @@ npm i -D vite-tsconfig-paths
 ```
 <br />
 
-#### ✧ Nextjs
+#### ✧ Next.js
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
