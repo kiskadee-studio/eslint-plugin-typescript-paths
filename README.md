@@ -8,7 +8,7 @@
 
 ## 📖 Description
 
-**ESLint Rules** that enables the *automatic fixing* of relative paths to absolute paths based on the [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+**_ESLint Plugin_** that includes rules which **_encourage the use of absolute paths_** over relative paths, defined by [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
 ## 🗂️ Summary
 
@@ -30,6 +30,8 @@
 ---
 
 ## 🎒 Installation
+
+In your **terminal**, run the command below:
 
 ```bash
 npm i -D eslint-plugin-typescript-paths
@@ -71,7 +73,7 @@ If you want to customize the rules, define `typescript-paths` plugin.
   };
 ```
 
-##### TSConfig.json
+##### ⚫ TSConfig.json
 
 Your project requires a tsconfig.json. Despite the plugin's capability to function without specified paths or a baseUrl in the tsconfig.json, we utilize the default baseUrl, "./". This allows us to provide suggestions for absolute paths, or not, as needed. However, without a tsconfig.json file, the plugin simply won't operate.
 
@@ -95,11 +97,11 @@ Your project requires a tsconfig.json. Despite the plugin's capability to functi
 
 > Keep in mind that the `./` origin used in `paths` is relative to the `baseUrl`. Using the above example as reference, it would be possible to set baseUrl as `./src`, and paths as `"app/*": ["./app/*"]`.
 
-##### Node Absolute Paths
+##### ⚫ Node Absolute Paths
 
 Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
 
-###### ❌ Avoid using this
+##### ❌ Avoid using this
 
 ```typescript
   import logo from '/img/logo.svg';
@@ -108,7 +110,7 @@ Node.js interprets absolute imports based on **_the location of the file being e
 
 Some frameworks have a `public` directory, to which you could make absolute imports. However, **_this is not encouraged_**. To maintain consistency with EcmaScript and TypeScript, **_it is highly recommended that you create a path (alias)_** to this public folder instead, as shown in the following example:
 
-###### ✅ Suggested usage
+##### ✅ Suggested usage
 
 ```jsonc
   // tsconfig.json
@@ -137,7 +139,7 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
 
-### TypeScript (tsc)
+### ⚫ TypeScript (tsc)
 
 ##### Installation
 
@@ -156,7 +158,7 @@ npm i -D tsc-alias
   }
 ```
 
-### Vite / Vitest
+### ⚫ Vite / Vitest
 
 ##### Installation
 
@@ -190,15 +192,15 @@ npm i -D vite-tsconfig-paths
   });
 ```
 
-### Next.js
+### ⚫ Next.js
 
 Next.js has [in-built support](https://nextjs.org/docs/app/building-your-application/configuring/absolute-imports-and-module-aliases) for the "paths" and "baseUrl" options of `tsconfig.json` and `jsconfig.json` files.
 
-### Gatsby
+### ⚫ Gatsby
 
 soon
 
-### Webpack
+### ⚫ Webpack
 
 soon
 
@@ -224,11 +226,11 @@ Controls whether the import can be absolute if the source is in the same directo
   };
 ```
 
-### - enableAlias: `true`
+### ⚫ enableAlias: `true`
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```typescript
   import functionA from './function-a';
@@ -236,7 +238,7 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from './path-1/path-3/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```typescript
   import functionA from '@/path/CURRENT-DIR/function-a';
@@ -244,11 +246,11 @@ Encourages the use of aliases for imports even from the same directory or subdir
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-### - enableAlias: `false` (default)
+### ⚫ enableAlias: `false` (default)
 
 Discourages the use of aliases for imports from the same directory or subdirectories.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```javascript
   import functionA from '@/path/CURRENT-DIR/function-a';
@@ -256,7 +258,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
   import functionC from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```javascript
   import functionA from './function-a';
@@ -286,11 +288,11 @@ Controls whether the export can be absolute if the source is in the same directo
   };
 ```
 
-### - enableAlias: `true`
+### ⚫ enableAlias: `true`
 
 Encourages the use of aliases for exports even from the same directory or subdirectories.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```javascript
   export functionA from './function-a';
@@ -298,7 +300,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
   export * from './path-1/path-3/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```javascript
   export functionA from '@/path/CURRENT-DIR/function-a';
@@ -306,7 +308,7 @@ Encourages the use of aliases for exports even from the same directory or subdir
   export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-### - enableAlias: `false` (default)
+### ⚫ enableAlias: `false` (default)
 
 Discourages the use of aliases for exports from the same directory or subdirectories.
 
@@ -318,7 +320,7 @@ Discourages the use of aliases for exports from the same directory or subdirecto
   export * from '@/path/CURRENT-DIR/path-1/path-3/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```javascript
   export functionA from './function-a';
@@ -348,11 +350,11 @@ Encourages the use of absolute imports from parent directories.
   };
 ```
 
-### - preferPathOverBaseUrl: `true` (default)
+### ⚫ preferPathOverBaseUrl: `true` (default)
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of importing modules using the `baseUrl` attribute.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```jsonc
   // tsconfig.json
@@ -376,7 +378,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionF from 'helper/util/path/function-f';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -396,7 +398,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionC from '@/helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -418,11 +420,11 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   import functionC from 'util/path/function-c';
 ```
 
-### - preferPathOverBaseUrl: `false`
+### ⚫ preferPathOverBaseUrl: `false`
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```javascript
   // relative parent imports
@@ -431,7 +433,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionC from '../../helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -450,7 +452,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   import functionC from 'helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -478,11 +480,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
-
-
 ---
-
-
 
 ## 🔥 absolute-parent-export - rule
 
@@ -504,11 +502,11 @@ Encourages the use of absolute exports from parent directories.
   };
 ```
 
-### - preferPathOverBaseUrl: `true` (default)
+### ⚫ preferPathOverBaseUrl: `true` (default)
 
 Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file instead of exporting modules using the `baseUrl` attribute.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```jsonc
   // tsconfig.json
@@ -532,7 +530,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from 'helper/util/path/function-f';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -552,7 +550,7 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from '@/helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -574,11 +572,11 @@ Encourages the use of `paths` (aliases) defined in the `tsconfig.json` file inst
   export * from 'util/path/function-c';
 ```
 
-### - preferPathOverBaseUrl: `false`
+### ⚫ preferPathOverBaseUrl: `false`
 
 Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` file, otherwise allows and suggests the use of absolute imports using the `baseUrl` attribute.
 
-###### ❌ Fail
+##### ❌ Fail
 
 ```javascript
   // relative parent exports
@@ -587,7 +585,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export * from '../../helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
@@ -606,7 +604,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
   export * from 'helper/util/path/function-c';
 ```
 
-###### ✅ Pass
+##### ✅ Pass
 
 ```jsonc
   // tsconfig.json
