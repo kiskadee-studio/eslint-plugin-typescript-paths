@@ -15,24 +15,24 @@
 
 ### 🗂️ Summary
 
-- [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
-- [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
+- [Installation](#-installation)
+- [Requirements](#-requirements)
 - Usage
   - [Recommended configuration](#-recommended-configuration)
   - [Configure the Rules](#-configure-the-rules)
   - [TSConfig.json](#-tsconfigjson)
   - [Node Absolute Paths](#-node-absolute-paths)
 - Frameworks
-  - [TypeScript (tsc)](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#typescript-tsc)
-  - [Vite / Vitest](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#vite--vitest)
-  - [Next.js](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#nextjs)
+  - [TypeScript (tsc)](#typescript-tsc)
+  - [Vite / Vitest](#vite--vitest)
+  - [Next.js](#nextjs)
   - Gatsby - soon
   - Webpack - soon
 - Rules
-  - [absolute-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-import---rule)
-  - [absolute-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-export---rule)
-  - [absolute-parent-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-import---rule)
-  - [absolute-parent-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-export---rule)
+  - [absolute-import](#-absolute-import---rule)
+  - [absolute-export](#-absolute-export---rule)
+  - [absolute-parent-import](#-absolute-parent-import---rule)
+  - [absolute-parent-export](#-absolute-parent-export---rule)
 
 <br />
 
