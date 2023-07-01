@@ -224,7 +224,7 @@ Controls whether the import can be absolute if the source is in the same directo
   };
 ```
 
-#### 🔵 enableAlias: `true`
+#### enableAlias: `true`
 
 Encourages the use of aliases for imports even from the same directory or subdirectories.
 
