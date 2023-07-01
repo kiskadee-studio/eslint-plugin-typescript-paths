@@ -61,7 +61,7 @@ Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee E
 ### 🪁 Usage
 <br />
 
-#### ➭ Recommended Configuration
+#### ✧ Recommended Configuration
 
 To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats))  file, extend `plugin:typescript-paths/recommended`.
 
@@ -75,7 +75,7 @@ To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint
 ```
 <br />
 
-#### ➭ Configure the Rules
+#### ✧ Configure the Rules
 
 Define `typescript-paths` plugin in the `.eslintrc` ([or equivalent](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats))  file.
 
@@ -89,7 +89,7 @@ Define `typescript-paths` plugin in the `.eslintrc` ([or equivalent](https://esl
 ```
 <br />
 
-#### ➭ TSConfig.json
+#### ✧ TSConfig.json
 
 Your project requires a tsconfig.json. Despite the plugin's capability to function without specified paths or a baseUrl in the tsconfig.json, we utilize the default baseUrl, "./". This allows us to provide suggestions for absolute paths, or not, as needed. However, without a tsconfig.json file, the plugin simply won't operate.
 
@@ -115,7 +115,7 @@ Your project requires a tsconfig.json. Despite the plugin's capability to functi
 
 <br />
 
-#### ➭ Node Absolute Paths
+#### ✧ Node Absolute Paths
 
 Node.js interprets absolute imports based on **_the location of the file being executed_**. That is, if you start an import with `/`, it will consider the root of the filesystem as the starting point. This can be confusing, as in many other environments, such as the web and some JavaScript transpilers like Babel, an import starting with `/` refers to the root of the project.
 
