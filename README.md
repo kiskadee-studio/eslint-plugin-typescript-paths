@@ -6,11 +6,11 @@
   <img alt="GitHub Release Date - Published_At" src="https://img.shields.io/github/release-date/kiskadee-studio/eslint-plugin-typescript-paths">
 </p>
 
-## 📖 Description
+### 📖 Description
 
 **_ESLint Plugin_** that includes rules which **_encourage the use of absolute paths_** over relative paths, defined by [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
-## 🗂️ Summary
+### 🗂️ Summary
 
 - [Installation](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-installation)
 - [Requirements](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-requirements)
@@ -29,7 +29,7 @@
 
 ---
 
-## 🎒 Installation
+### 🎒 Installation
 
 In your **terminal**, run the command below:
 
@@ -41,7 +41,7 @@ npm i -D eslint-plugin-typescript-paths
 
 ---
 
-## 🧩 Requirements
+### 🧩 Requirements
 
 It is recommended that you have already set up [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript), [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) in your project.
 
@@ -51,7 +51,7 @@ Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee E
 
 ---
 
-## 🪁 Usage
+### 🪁 Usage
 
 To use the recommended rules, in the `.eslintrc` ([or equivalent](https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats))  file, extend `plugin:typescript-paths/recommended`.
 
@@ -137,7 +137,9 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 > The example above is just a suggestion in case you want to keep the 'public' directory, nothing prevents you from using it inside 'src' or changing its name. Don't get attached to our alias names in the examples, they are not recommendations, just examples. Use the aliases with which you feel most comfortable
 
-## Frameworks
+---
+
+### Frameworks
 
 Despite its configuration option in tsconfig.json, it's ironic that TypeScript doesn't have native support for aliases. Nevertheless, third-party tools are necessary to enable this feature. Below is a list of frameworks that support aliases and how to configure them.
 
@@ -206,7 +208,7 @@ soon
 
 ---
 
-## 🔥 absolute-import - rule
+### 🔥 absolute-import - rule
 
 Controls whether the import can be absolute if the source is in the same directory.
 
@@ -268,7 +270,7 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 
 ---
 
-## 🔥 absolute-export - rule
+### 🔥 absolute-export - rule
 
 Controls whether the export can be absolute if the source is in the same directory.
 
@@ -328,7 +330,7 @@ Discourages the use of aliases for exports from the same directory or subdirecto
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
-## 🔥 absolute-parent-import - rule
+### 🔥 absolute-parent-import - rule
 
 Encourages the use of absolute imports from parent directories.
 
@@ -480,7 +482,7 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 ---
 
-## 🔥 absolute-parent-export - rule
+### 🔥 absolute-parent-export - rule
 
 Encourages the use of absolute exports from parent directories.
 
