@@ -8,7 +8,7 @@
     "README.md",
     "LICENSE"
   ],
-  "description": "ESLint rule that enables the automatic fixing of absolute paths based on the paths or baseUrl from tsconfig.json",
+  "description": "ESLint Plugin that includes rules which encourage the use of absolute paths over relative paths, defined by paths or baseUrl from tsconfig.json",
   "license": "AGPL-3.0-or-later",
   "author": {
     "email": "rodrigojcmello@gmail.com",
