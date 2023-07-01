@@ -11,7 +11,6 @@
 
 **_ESLint Plugin_** that includes rules which **_encourage the use of absolute paths_** over relative paths, defined by [paths](https://www.typescriptlang.org/tsconfig#paths) or [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl) from [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
----
 <br />
 
 ### 🗂️ Summary
@@ -31,7 +30,6 @@
   - [absolute-parent-import](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-import---rule)
   - [absolute-parent-export](https://github.com/kiskadee-studio/eslint-plugin-typescript-paths/tree/master#-absolute-parent-export---rule)
 
----
 <br />
 
 ### 🎒 Installation
@@ -44,7 +42,6 @@ npm i -D eslint-plugin-typescript-paths
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🧩 Requirements
@@ -55,7 +52,6 @@ Alternatively, you can simply use a ***level 2 configuration*** from [Kiskadee E
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🪁 Usage
@@ -147,7 +143,6 @@ Some frameworks have a `public` directory, to which you could make absolute impo
 
 > The example above is just a suggestion in case you want to keep the 'public' directory, nothing prevents you from using it inside 'src' or changing its name. Don't get attached to our alias names in the examples, they are not recommendations, just examples. Use the aliases with which you feel most comfortable
 
----
 <br />
 
 ### Frameworks
@@ -225,7 +220,6 @@ soon
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🔥 absolute-import - rule
@@ -290,7 +284,6 @@ Discourages the use of aliases for imports from the same directory or subdirecto
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🔥 absolute-export - rule
@@ -355,7 +348,6 @@ Discourages the use of aliases for exports from the same directory or subdirecto
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🔥 absolute-parent-import - rule
@@ -510,7 +502,6 @@ Encourages the use of `paths` (aliases) **if defined** in the `tsconfig.json` fi
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
----
 <br />
 
 ### 🔥 absolute-parent-export - rule
