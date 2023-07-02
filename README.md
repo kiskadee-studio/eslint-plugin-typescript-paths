@@ -50,9 +50,9 @@ npm i -D eslint-plugin-typescript-paths
 
 ### 🧩 Requirements
 
-It is recommended that you have already set up [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript), [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) in your project.
+Considering we're talking about **_a plugin for TypeScript_**, it's crucial to configure the [@typescript-eslint](https://typescript-eslint.io/getting-started/#step-2-configuration) plugin first. While the [eslint-plugin-import](https://github.com/import-js/eslint-plugin-import#typescript) and [eslint-import-resolver-typescript](https://github.com/import-js/eslint-import-resolver-typescript) plugins _are not obligatory_, they provide a more consistent approach to module resolution and are recommended for usage.
 
-Alternatively, you can simply use a ***level 1 configuration*** from [Kiskadee ESLint Setup](https://github.com/kiskadee-studio/eslint-config-kiskadee) that already includes all the prerequisite configuration and additionally supports this plugin.
+_**As an alternative approach**_ to the above-mentioned setups, you can consider using a [Kiskadee ESLint Configuration](https://github.com/kiskadee-studio/eslint-config-kiskadee) at any level, which not only covers all the prerequisite configurations but also offers support for this plugin.
 
 <div align="right">[ <a href="#-description">↑ Back to top ↑</a> ]</div>
 
