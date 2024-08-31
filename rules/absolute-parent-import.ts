@@ -31,7 +31,6 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     docs: {
       description:
         'Encourages the use of absolute imports from parent directories.',
-      recommended: 'warn',
     },
     schema: [
       {
@@ -63,7 +62,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     return {
       ImportDeclaration(node): void {
         const pathUsed = node.source.value;
-        const filename = context.getFilename();
+        const { filename } = context;
         const directoryName = dirname(filename);
         const absolutePath = join(directoryName, pathUsed);
 

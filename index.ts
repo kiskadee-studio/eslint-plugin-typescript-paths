@@ -5,7 +5,7 @@ import absoluteExport from './rules/absolute-export';
 import absoluteParentExport from './rules/absolute-parent-export';
 import absoluteParentImport from './rules/absolute-parent-import';
 
-export = {
+export default {
   meta: {
     name: packageJson.name,
     version: packageJson.version,

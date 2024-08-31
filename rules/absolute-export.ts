@@ -33,7 +33,6 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     docs: {
       description:
         'Controls whether the export can be absolute if the source is in the same directory or below.',
-      recommended: 'warn',
     },
     schema: [
       {
@@ -67,7 +66,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     > = (node): void => {
       if (node.source) {
         const pathUsed = node.source.value;
-        const filename = context.getFilename();
+        const { filename } = context;
         const directoryName = dirname(filename);
         const absolutePath = join(directoryName, pathUsed);
 

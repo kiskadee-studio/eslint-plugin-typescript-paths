@@ -1,9 +1,7 @@
-/* eslint-disable unicorn/prefer-module */
 import { existsSync } from 'node:fs';
 import type { Mock } from 'vitest';
-import { parse, resolve } from 'node:path';
-import os from 'node:os';
-import { searchForFileDirectory } from '.';
+import { resolve } from 'node:path';
+import { searchForFileDirectory } from './index';
 
 vi.mock('fs', () => ({
   existsSync: vi.fn(),
@@ -31,12 +29,13 @@ describe('searchForFileDirectory function', () => {
   });
 
   it('should stop at the root directory', () => {
+    const filename = 'package.json';
+
     (existsSync as Mock).mockImplementation(
-      (path) => path === `${parse(os.homedir()).root}package.json`
+      (path) => path === resolve(process.cwd(), filename)
     );
 
-    const filename = 'package.json';
     const dir = searchForFileDirectory(filename);
-    expect(dir).toBe(parse(os.homedir()).root);
+    expect(dir).toBe(resolve(process.cwd()));
   });
 });
