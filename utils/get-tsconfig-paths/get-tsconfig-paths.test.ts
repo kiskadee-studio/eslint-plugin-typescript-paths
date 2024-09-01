@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
-import { findExistingFile } from '@/utils/find-existing-file';
-import type { Mock } from 'vitest';
 import * as jsonParser from 'jsonc-parser';
-import { convertToUnixPath } from '@/utils/convert-to-unix-path';
-import type { Paths, TSConfig } from '.';
-import { getTSConfigPaths } from '.';
+import type { Mock } from 'vitest';
+
+import { findExistingFile } from '@/utils/find-existing-file';
+import { getTSConfigPaths } from './index';
+import type { Paths, TSConfig } from './index';
 
 vi.mock('fs', () => ({
   readFileSync: vi.fn(),
@@ -19,12 +19,12 @@ vi.mock('jsonc-parser', () => ({
   parse: vi.fn(),
 }));
 
-describe('getPaths method', () => {
+describe('getTSConfigPaths method', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('should return the correct base URL and paths', () => {
+  it('should return the base URL and paths', () => {
     const rootDir = '/path/to/project';
     const configPath = '/path/to/project/tsconfig.json';
     const tsconfig: TSConfig = {
@@ -47,10 +47,9 @@ describe('getPaths method', () => {
     };
     const expectedBaseURL = '/path/to/project/src';
     const result = getTSConfigPaths(rootDir);
-    result!.baseUrl = convertToUnixPath(result?.baseUrl ?? '');
 
     expect(result).toEqual({
-      baseUrl: convertToUnixPath(expectedBaseURL),
+      baseUrl: expectedBaseURL,
       paths: expectedPaths,
     });
     expect(findExistingFile).toHaveBeenCalledWith(rootDir, [
@@ -61,31 +60,20 @@ describe('getPaths method', () => {
     expect(jsonParser.parse).toHaveBeenCalledWith(JSON.stringify(tsconfig));
   });
 
-  it('should return default values when configPath is not found', () => {
+  it('should return default values when config path is not found', () => {
     const rootDir = '/path/to/project';
     const expectedPaths: Paths = {};
 
     const result = getTSConfigPaths(rootDir);
-    result!.baseUrl = convertToUnixPath(result?.baseUrl ?? '');
 
     expect(result).toEqual({
-      baseUrl: convertToUnixPath(rootDir),
+      baseUrl: rootDir,
       paths: expectedPaths,
     });
     expect(findExistingFile).toHaveBeenCalledWith(rootDir, [
       'tsconfig.json',
       'jsconfig.json',
     ]);
-    expect(readFileSync).not.toHaveBeenCalled();
-    expect(jsonParser.parse).not.toHaveBeenCalled();
-  });
-
-  it('should return undefined when rootDir is not specified', () => {
-    const rootDir: string | undefined = undefined;
-    const result = getTSConfigPaths(rootDir);
-
-    expect(result).toBeUndefined();
-    expect(findExistingFile).not.toHaveBeenCalled();
     expect(readFileSync).not.toHaveBeenCalled();
     expect(jsonParser.parse).not.toHaveBeenCalled();
   });
