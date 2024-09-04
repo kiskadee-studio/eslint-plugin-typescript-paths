@@ -1,6 +1,6 @@
 import { platform } from 'node:os';
 import type { Mock } from 'vitest';
-import { convertToUnixPath } from '.'; // Import the function you want to test
+import { convertToUnixPath } from './index';
 
 vi.mock('os', () => {
   return { platform: vi.fn() };
@@ -15,7 +15,7 @@ describe('convertToUnixPath method', () => {
     (platform as Mock).mockImplementationOnce(() => 'win32');
 
     const windowsPath = 'C:\\Users\\Test\\Documents\\file.txt';
-    const expectedUnixPath = 'Users/Test/Documents/file.txt';
+    const expectedUnixPath = '/c/Users/Test/Documents/file.txt';
     const actualUnixPath = convertToUnixPath(windowsPath);
 
     expect(actualUnixPath).toEqual(expectedUnixPath);

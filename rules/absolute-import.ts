@@ -67,7 +67,7 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const directoryName = dirname(filename);
         const absolutePath = join(directoryName, pathUsed);
 
-        if (enableAlias && pathUsed.startsWith('./')) {
+        if (enableAlias && pathUsed.startsWith('./') && pathUsed !== '.') {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
 
           if (expectedPath && pathUsed !== expectedPath) {

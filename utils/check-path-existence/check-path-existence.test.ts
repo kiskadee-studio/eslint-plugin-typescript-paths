@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import type { Mock } from 'vitest';
-import { checkPathExistence } from '.';
+
+import { checkPathExistence } from './index';
 
 vi.mock('fs', () => ({ existsSync: vi.fn() }));
 

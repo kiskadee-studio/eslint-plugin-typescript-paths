@@ -1,23 +1,24 @@
 /* eslint-disable no-unreachable-loop,no-param-reassign */
 // noinspection LoopStatementThatDoesntLoopJS
 
-import { posix } from 'node:path';
-import { convertToUnixPath } from '@/utils/convert-to-unix-path';
+import { posix, resolve, relative } from 'node:path';
+
 import type { Paths } from '@/utils/get-tsconfig-paths';
 
-export function getExpectedPath(
+function getExpectedPath(
+  /*
+   * `absolutePath` and `baseUrl` must be in Unix format
+   */
   absolutePath: string,
   baseUrl: string,
   paths: Paths
 ): string {
-  absolutePath = convertToUnixPath(absolutePath);
-  baseUrl = convertToUnixPath(baseUrl);
-
   /**
    * Given that baseUrl and absolutPath are in Unix format, posix is used to
    * maintain compatibility.
    */
-  const relativeToBaseUrl = posix.relative(baseUrl, absolutePath);
+  const resolveToBaseUrl = resolve(baseUrl, absolutePath);
+  const relativeToBaseUrl = relative(resolveToBaseUrl, absolutePath);
   let expectedPath = '';
 
   for (const aliasRegex of Object.keys(paths)) {
@@ -36,7 +37,7 @@ export function getExpectedPath(
       /**
        * Both newPath and expectedPath should be in Unix format.
        */
-      const newPath = posix.relative(partialPath, relativeToBaseUrl);
+      const newPath = posix.resolve(partialPath, relativeToBaseUrl);
       if (!newPath.startsWith('.')) {
         expectedPath = posix.join(alias, newPath);
         break;
@@ -50,3 +51,5 @@ export function getExpectedPath(
 
   return expectedPath || relativeToBaseUrl;
 }
+
+export { getExpectedPath };

@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import type { Mock } from 'vitest';
 import { resolve } from 'node:path';
-import { searchForFileDirectory } from './index';
+import { searchForFileDirectory } from '@';
 
 vi.mock('fs', () => ({
   existsSync: vi.fn(),

@@ -86,4 +86,19 @@ describe('getExpectedPath method', () => {
 
     expect(result).toBe(expected);
   });
+
+  it('should return the expected path when a match is found - Test 6', () => {
+    (platform as Mock).mockImplementation(() => 'win32');
+
+    const baseUrl = 'C:\\path\\to\\base';
+    const absolutePath = 'C:\\path\\to\\base\\flows\\index';
+    const paths: Paths = {
+      '@/*': ['./*'],
+    };
+
+    const expected = '@/flows';
+    const result = getExpectedPath(absolutePath, baseUrl, paths);
+
+    expect(result).toBe(expected);
+  });
 });

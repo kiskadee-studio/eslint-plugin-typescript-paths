@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { posix } from 'node:path';
+import { resolve } from 'node:path';
 import { parse } from 'jsonc-parser';
 
 import { findExistingFile } from '@/utils/find-existing-file';
@@ -8,7 +8,7 @@ import type { BaseURLPaths, Paths, TSConfig } from './get-tsconfig-paths.types';
 /**
  * Retrieves the TSConfig paths.
  *
- * @param {string} rootDir - The root directory, which must be in Unix format.
+ * @param {string} rootDir - The root directory which must conform to the current OS format (e.g., drive letter and backslashes on Windows, forward slashes on Unix-based systems) due to how the resolver method works.
  * @returns {BaseURLPaths | undefined} - The base URL and paths from the TSConfig.
  */
 function getTSConfigPaths(rootDir: string): BaseURLPaths | undefined {
@@ -28,7 +28,7 @@ function getTSConfigPaths(rootDir: string): BaseURLPaths | undefined {
   }
 
   return {
-    baseUrl: posix.join(rootDir, baseUrl),
+    baseUrl: resolve(rootDir, baseUrl),
     paths,
   };
 }

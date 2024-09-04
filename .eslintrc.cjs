@@ -6,5 +6,7 @@ module.exports = {
       'error',
       { devDependencies: ['**/*.test.js', '**/*.config.*', './rules/**'] },
     ],
+    'unicorn/no-null': 'off',
+    'import/order': 'off',
   },
 };

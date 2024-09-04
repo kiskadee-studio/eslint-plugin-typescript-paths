@@ -6,6 +6,7 @@ import { checkPathExistence } from '@/utils/check-path-existence';
 import { searchForFileDirectory } from '@/utils/search-for-file-directory';
 
 type MessageIds =
+  | 'teste'
   | 'aliasImportOverRelative'
   | 'aliasImportOverBaseUrl'
   | 'baseUrlImportOverRelative';
@@ -21,6 +22,8 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
     fixable: 'code',
     type: 'suggestion',
     messages: {
+      teste:
+        "Teste: Use '{{expectedPath}}' - {{expectedPath}} - {{relativeToBaseUrl}} - {{baseUrl}} - {{paths}}",
       aliasImportOverRelative:
         "Alias imports must be used over parent relative imports. Use '{{expectedPath}}' instead.",
       aliasImportOverBaseUrl:
@@ -51,13 +54,13 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
   ],
   create(context, [{ preferPathOverBaseUrl }]) {
     const rootDir = searchForFileDirectory('package.json');
-    const config = getTSConfigPaths(rootDir);
+    const tsConfig = rootDir ? getTSConfigPaths(rootDir) : undefined;
 
-    if (!config) {
+    if (!tsConfig) {
       return {};
     }
 
-    const { baseUrl, paths } = config;
+    const { baseUrl, paths } = tsConfig;
 
     return {
       ImportDeclaration(node): void {
@@ -65,6 +68,18 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
         const { filename } = context;
         const directoryName = dirname(filename);
         const absolutePath = join(directoryName, pathUsed);
+
+        // if (pathUsed === '.') {
+        //   const expectedPath = 'sei lá';
+        //   context.report({
+        //     node,
+        //     messageId: 'teste',
+        //     data: { expectedPath },
+        //     fix(fixer) {
+        //       return fixer.replaceText(node.source, `'${expectedPath}'`);
+        //     },
+        //   });
+        // } else
 
         if (pathUsed.startsWith('../')) {
           const expectedPath = getExpectedPath(absolutePath, baseUrl, paths);
@@ -85,9 +100,13 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             });
           }
         } else if (!pathUsed.startsWith('./') && preferPathOverBaseUrl) {
-          const relativeToBaseUrl = posix.join(baseUrl, pathUsed);
+          const relativeToBaseUrl = posix
+            .join(baseUrl, pathUsed)
+            .replaceAll('\\', '/');
 
-          if (checkPathExistence(relativeToBaseUrl)) {
+          const pathExists = checkPathExistence(relativeToBaseUrl);
+
+          if (pathExists) {
             const expectedPath = getExpectedPath(
               relativeToBaseUrl,
               baseUrl,
@@ -97,8 +116,13 @@ export default ESLintUtils.RuleCreator.withoutDocs<Options, MessageIds>({
             if (expectedPath && pathUsed !== expectedPath) {
               context.report({
                 node,
-                messageId: 'aliasImportOverBaseUrl',
-                data: { expectedPath },
+                messageId: 'teste',
+                data: {
+                  expectedPath,
+                  relativeToBaseUrl,
+                  baseUrl,
+                  paths,
+                },
                 fix(fixer) {
                   return fixer.replaceText(node.source, `'${expectedPath}'`);
                 },
